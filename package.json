@@ -4,9 +4,21 @@
   "description": "A fun project to simulate various card game experiences.",
   "main": "index.js",
   "scripts": {
+    "start": "babel-node server/models/Deck --extensions .ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "@babel/runtime": "^7.9.2"
+  },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
+    "@babel/register": "^7.9.0",
     "@types/jest": "^25.2.1",
     "@types/node": "^13.11.1",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
@@ -14,6 +26,7 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
+    "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
