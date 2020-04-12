@@ -32,6 +32,11 @@
   },
   "rules": {
     "lines-between-class-members": "off",
+    "no-underscore-dangle": "off",
+    "no-plusplus": "off",
+    "no-restricted-globals": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "import/prefer-default-export": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -42,5 +47,11 @@
         "tsx": "never"
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["server/**/*"],
+      "rules": { "no-console": "off", "no-restricted-syntax": "off" }
+    }
+  ]
 }

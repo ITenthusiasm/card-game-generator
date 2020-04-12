@@ -5,4 +5,17 @@
 - Using `plugin:@typescript-eslint/recommended` handled the issues of "not using interfaces" even though we were.
 
 - [ESLint with Typescript imports](https://github.com/alexgorbatchev/eslint-import-resolver-typescript)
+
   - After a series of annoying Googles and searches for how to resolve "eslint import issues with typescript", we finally found `.eslintrc` configuration that worked. There may be extraneous typescript configurations. It's hard to tell because some configurations are needed for basic typescript linting. But at this point, we'll keep everything that's present. The import/extension rules and the import/resolver settings are definitely required. The others may just be related to proper typescript linting.
+
+- [Creating "extensible" enums types](https://github.com/Microsoft/TypeScript/issues/17059#issuecomment-314156677)
+
+  - This is really just a way to keep type safety and "extensibility" for "enums" in JS without trying to go too C#/type crazy. Makes perfect sense.
+  - **_You should beware of the enum conflicts_** example that andy-ms gives. However, currently, there isn't likely to be an issue where, for instance, A "Red Card" in Uno would be mistaken for a "Red Card" in Codenames. This is analogous to GoodMusic.RockAndRoll being mistaken for BadMusic.Rap in andy's example, since both of them evaluate to 0. But we aren't doing things like switch case scenarios at the moment. And our decks will likely be isolated during gameplay anyway. If the decks are brought together, the cards may still be of "the same type" anyway so it still may not matter. In any case, for now things appear to be safe. But we should consider these potential problems in the future.
+  - Also be aware that this is probably one of the few areas that is "more TS than JS" as a warning. We want to be as much JS as possible. But this is only a slight deviation that really just focuses on expressing types, which are already a part of TS anyway.
+
+- `eslint` doesn't understand exporting types. It thinks you're exporting undefined. Nonetheless, the code still compiles. It seems eslint has a bug.
+
+- For `export * as namespace from module`, you'll need the [babel plugin](https://babeljs.io/docs/en/babel-plugin-proposal-export-namespace-from), which we have installed. Notice that this was a proposal that has been merged...but `ES2020` is not out yet... [See this tc39 proposal](https://github.com/tc39/proposal-export-ns-from)
+
+- [Shuffling arrays in JS](https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array). This uses the [`Fisher-Yates` algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm), which is worth getting acquainted with...especially since it's simple.
