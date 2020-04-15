@@ -1,5 +1,5 @@
 import { DeckTypes } from "./enums";
-import type { CardType } from "./enums/types";
+import type { CardType, CardValue } from "./enums/types";
 import { Card } from ".";
 import {
   ClassicManifest,
@@ -9,8 +9,8 @@ import {
 
 class Deck {
   private _type: DeckTypes;
-  private _cards: Array<Card>;
-  private _manifest: Map<CardType, Array<any>>;
+  private _cards: Card[];
+  private _manifest: Map<CardType, CardValue[]>;
 
   constructor(type: DeckTypes) {
     this._type = type;
@@ -44,7 +44,7 @@ class Deck {
     return this._type;
   }
 
-  get cards(): Array<Card> {
+  get cards(): Card[] {
     return this._cards;
   }
 
@@ -52,7 +52,7 @@ class Deck {
     return this._cards.length;
   }
 
-  draw(cardNumber = 0): Array<Card> {
+  draw(cardNumber = 0): Card[] {
     return this._cards.splice(0, cardNumber);
   }
 

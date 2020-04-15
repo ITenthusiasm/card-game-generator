@@ -18,11 +18,14 @@
 
 - For `export * as namespace from module`, you'll need the [babel plugin](https://babeljs.io/docs/en/babel-plugin-proposal-export-namespace-from), which we have installed. Notice that this was a proposal that has been merged...but `ES2020` is not out yet... [See this tc39 proposal](https://github.com/tc39/proposal-export-ns-from)
 
+- For some reason, `Nullish Coalescing` and `Optional Chaining` are already in the babel preset that we're using. (It should be in ES2020 anyway.) We'll just take advantage of this.
+
+  - Optional chaining [looks more powerful in JS than you'd think](https://github.com/tc39/proposal-optional-chaining). It's not just some simple C# syntax. It goes even further, like being able to use `obj?.[key]` (which makes for stuff like asking for dynamic properties).
+
 - [Shuffling arrays in JS](https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array). This uses the [`Fisher-Yates` algorithm](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm), which is worth getting acquainted with...especially since it's simple.
 
 - [Reservoir Sampling](https://en.wikipedia.org/wiki/Reservoir_sampling) is a way to sample `k` items from a population of size `n` **_without replacement_**. We used the "optimal" algorithm (assuming it's truly optimal), though we had to properly interpret the algorithm for a 0-indexed array.
 
 - [Initializing and Array with number 1-N (or 0 to N-1)](https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n).
 
-- For some reason, `Nullish Coalescing` and `Optional Chaining` are already in the babel preset that we're using. (It should be in ES2020 anyway.) We'll just take advantage of this.
-  - Optional chaining [looks more powerful in JS than you'd think](https://github.com/tc39/proposal-optional-chaining). It's not just some simple C# syntax. It goes even further, like being able to use `obj?.[key]` (which makes for stuff like asking for dynamic properties).
+- Common convention for functions in JavaScript like `forEach` is to name unused variables as `_`. For instance, `array.forEach((_, index => ...))`. If multiple unused variables are involved, then the common convention is to precede the variable name with an underscore (eg. `_item` instead of just `_`).
