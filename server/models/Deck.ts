@@ -1,7 +1,11 @@
 import { DeckTypes } from "./enums";
 import type { CardType } from "./enums/types";
 import { Card } from ".";
-import { ClassicManifest } from "./DeckManifests";
+import {
+  ClassicManifest,
+  UnoManifest,
+  createCodenamesManifest,
+} from "./DeckManifests";
 
 class Deck {
   private _type: DeckTypes;
@@ -13,7 +17,20 @@ class Deck {
     this._cards = [];
 
     // Initialize Deck based on manifest.
-    this._manifest = ClassicManifest;
+    switch (this._type) {
+      case DeckTypes.Classic:
+        this._manifest = ClassicManifest;
+        break;
+      case DeckTypes.Uno:
+        this._manifest = UnoManifest;
+        break;
+      case DeckTypes.Codenames:
+        this._manifest = createCodenamesManifest();
+        break;
+      default:
+        throw new Error(`Unsupported Deck Type: ${type}`);
+    }
+
     this.initializeDeck();
   }
 
@@ -31,6 +48,10 @@ class Deck {
     return this._cards;
   }
 
+  get size(): number {
+    return this._cards.length;
+  }
+
   draw(cardNumber = 0): Array<Card> {
     return this._cards.splice(0, cardNumber);
   }
@@ -45,8 +66,31 @@ class Deck {
 }
 
 const classicDeck = new Deck(DeckTypes.Classic);
+const showClassic = false;
+
+const unoDeck = new Deck(DeckTypes.Uno);
+const showUno = false;
+
+const codenamesDeck = new Deck(DeckTypes.Codenames);
+const showCodenames = true;
 
 classicDeck.shuffle();
-console.log(classicDeck.cards);
+unoDeck.shuffle();
+codenamesDeck.shuffle();
+
+if (showClassic) {
+  console.log(classicDeck.cards);
+  console.log(classicDeck.size);
+}
+
+if (showUno) {
+  console.log(unoDeck.cards);
+  console.log(unoDeck.size);
+}
+
+if (showCodenames) {
+  console.log(codenamesDeck.cards);
+  console.log(codenamesDeck.size);
+}
 
 export default Deck;
