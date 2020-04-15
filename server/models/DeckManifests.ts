@@ -1,17 +1,10 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { CardTypes, CardValues } from "./enums";
 import type { CardType, CardValue } from "./enums/types";
-import { enumToArray, generateCardVals } from "../utils/arrayMappers";
+import { generateCardVals } from "../utils/arrayMappers";
 import { UnoSchematic, ClassicSchematic } from "./DeckSchematics";
 
 type DeckManifest = Map<CardType, CardValue[]>;
-
-// export const ClassicManifest: DeckManifest = new Map([
-//   [CardTypes.Classic.Hearts, enumToArray(CardValues.Classic)],
-//   [CardTypes.Classic.Spades, enumToArray(CardValues.Classic)],
-//   [CardTypes.Classic.Diamonds, enumToArray(CardValues.Classic)],
-//   [CardTypes.Classic.Clubs, enumToArray(CardValues.Classic)],
-// ]);
 
 export const ClassicManifest: DeckManifest = new Map([
   [CardTypes.Classic.Hearts, generateCardVals(ClassicSchematic)],
