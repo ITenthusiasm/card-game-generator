@@ -52,7 +52,7 @@ class Deck {
     return this._cards.length;
   }
 
-  draw(cardNumber = 0): Card[] {
+  draw(cardNumber = 1): Card[] {
     return this._cards.splice(0, cardNumber);
   }
 
