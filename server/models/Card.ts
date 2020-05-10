@@ -1,10 +1,10 @@
-import type { CardType } from "./enums/types";
+import type { CardType, CardValue } from "./enums/types";
 
 class Card {
   type: CardType;
-  value: any;
+  value: CardValue;
 
-  constructor(type: CardType, value: any) {
+  constructor(type: CardType, value: CardValue) {
     this.type = type;
     this.value = value;
   }

@@ -1,6 +1,6 @@
 import { DeckTypes } from "./enums";
-import type { CardType, CardValue } from "./enums/types";
 import { Card } from ".";
+import type { DeckManifest } from "./DeckManifests";
 import {
   ClassicManifest,
   UnoManifest,
@@ -10,7 +10,7 @@ import {
 class Deck {
   private _type: DeckTypes;
   private _cards: Card[];
-  private _manifest: Map<CardType, CardValue[]>;
+  private _manifest: DeckManifest;
 
   constructor(type: DeckTypes) {
     this._type = type;
