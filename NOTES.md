@@ -34,7 +34,7 @@
 
 ### Web
 
-- [Helping ESLint resolve aliased imports](https://stackoverflow.com/questions/47863102/eslint-error-showing-with-webpack-alias)
+- [Helping ESLint resolve aliased imports](https://github.com/johvin/eslint-import-resolver-alias)
 
 - TSconfig, among other things, can be used to help Visual Studio Code resolve aliased imports.
 

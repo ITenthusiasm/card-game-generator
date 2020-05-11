@@ -68,6 +68,10 @@
     {
       "files": ["server/index.js"],
       "rules": { "import/newline-after-import": "off" }
+    },
+    {
+      "files": ["src/main.ts"],
+      "rules": { "@typescript-eslint/explicit-function-return-type": "off" }
     }
   ]
 }
