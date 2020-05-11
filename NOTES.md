@@ -49,3 +49,5 @@
 - [Using Typescript in Single File Components (SFC's)](https://alligator.io/vuejs/using-typescript-with-vue/)
 
 - [Adding Hot Module Reloading](https://github.com/webpack-contrib/webpack-hot-middleware)
+
+- [Add Vue without CLI](https://www.freecodecamp.org/news/how-to-create-a-vue-js-app-using-single-file-components-without-the-cli-7e73e5b8244f/)
