@@ -6,8 +6,8 @@
   },
   "extends": [
     "airbnb",
+    "plugin:vue/essential",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
     "plugin:prettier/recommended"
   ],
   "globals": {
@@ -19,14 +19,17 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 2019,
+    "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "react"],
+  "plugins": ["@typescript-eslint"],
   "settings": {
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "alias": {
+        "map": [["@", "./src"]]
       }
     }
   },
@@ -37,6 +40,8 @@
     "no-restricted-globals": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "import/prefer-default-export": "off",
+    "func-names": "off",
+    "import/no-extraneous-dependencies": ["warn", { "devDependencies": true }],
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -52,6 +57,10 @@
     {
       "files": ["server/**/*"],
       "rules": { "no-console": "off", "no-restricted-syntax": "off" }
+    },
+    {
+      "files": ["server/index.js"],
+      "rules": { "import/newline-after-import": "off" }
     }
   ]
 }

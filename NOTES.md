@@ -1,3 +1,5 @@
+### Server
+
 - [Using babel to execute typescript](https://github.com/babel/babel/issues/6353)
 
 - When using `extends` in `.eslintrc`, the ordering is important. Latter rules overwrite former rules.
@@ -29,3 +31,21 @@
 - [Initializing and Array with number 1-N (or 0 to N-1)](https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n).
 
 - Common convention for functions in JavaScript like `forEach` is to name unused variables as `_`. For instance, `array.forEach((_, index => ...))`. If multiple unused variables are involved, then the common convention is to precede the variable name with an underscore (eg. `_item` instead of just `_`).
+
+### Web
+
+- [Helping ESLint resolve aliased imports](https://stackoverflow.com/questions/47863102/eslint-error-showing-with-webpack-alias)
+
+- TSconfig, among other things, can be used to help Visual Studio Code resolve aliased imports.
+
+  - We pulled our typescript config from Vue's. (We excluded the webpack-env type though.)
+
+- [Webpack vs. Webpack Dev Server vs. Webpack Hot Server vs. ...](https://stackoverflow.com/questions/42294827/webpack-vs-webpack-dev-server-vs-webpack-dev-middleware-vs-webpack-hot-middlewar)
+
+- [Using Typescript with Vue via webpack](https://alexjover.com/blog/integrate-typescript-in-your-vue-project/)
+
+  - [Reminder on using loaders with correct syntax](https://webpack.js.org/concepts/loaders/)
+
+- [Using Typescript in Single File Components (SFC's)](https://alligator.io/vuejs/using-typescript-with-vue/)
+
+- [Adding Hot Module Reloading](https://github.com/webpack-contrib/webpack-hot-middleware)
