@@ -6,8 +6,8 @@
   },
   "extends": [
     "airbnb",
-    "plugin:vue/essential",
     "plugin:@typescript-eslint/recommended",
+    "plugin:vue/recommended",
     "plugin:prettier/recommended"
   ],
   "globals": {
