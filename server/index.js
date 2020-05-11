@@ -36,6 +36,10 @@ app.get("/", async function (req, res) {
   res.send(htmlFile);
 });
 
+app.get("/favicon.ico", function (req, res) {
+  res.sendFile(path.join(__dirname, "../public/favicon.ico"));
+});
+
 app.listen(port, function (err) {
   if (err) return console.error(err);
 
