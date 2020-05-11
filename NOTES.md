@@ -53,3 +53,6 @@
 - [Add Vue without CLI](https://www.freecodecamp.org/news/how-to-create-a-vue-js-app-using-single-file-components-without-the-cli-7e73e5b8244f/)
 
 - Note that the ESLint config seems very brittle when it comes to Vue. So be extremely careful with it.
+  - [Using ESLint with Vue](https://vuejs.github.io/eslint-plugin-vue/user-guide/#installation). (Includes the complications of handling parsers.)
+  - [Vue Component tags order](https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/component-tags-order.md)
+  - [Vue Break on single line elements](https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/singleline-html-element-content-newline.md0). (No reasoning was given, this adds to lines of code, and it seems dumb...so no.)

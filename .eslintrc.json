@@ -5,7 +5,7 @@
     "node": true
   },
   "extends": [
-    "airbnb",
+    "airbnb-base",
     "plugin:@typescript-eslint/recommended",
     "plugin:vue/recommended",
     "plugin:prettier/recommended"
@@ -14,8 +14,8 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
-  "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "parser": "@typescript-eslint/parser",
     "ecmaFeatures": {
       "jsx": true
     },
@@ -38,9 +38,16 @@
     "no-underscore-dangle": "off",
     "no-plusplus": "off",
     "no-restricted-globals": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "import/prefer-default-export": "off",
     "func-names": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "vue/component-tags-order": [
+      "error",
+      {
+        "order": ["template", "script", "style"]
+      }
+    ],
+    "vue/singleline-html-element-content-newline": "off",
+    "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": ["warn", { "devDependencies": true }],
     "import/extensions": [
       "error",
