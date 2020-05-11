@@ -3,7 +3,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import VueLoaderPlugin from "vue-loader/lib/plugin";
 import webpack from "webpack";
 
-export default {
+const config: webpack.Configuration = {
   mode: "development",
   devtool: "inline-source-map",
   entry: [
@@ -20,7 +20,7 @@ export default {
     new HtmlWebpackPlugin({ template: "public/index.html", inject: true }),
     new VueLoaderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(false), // assuming false is default ("undefined" is "falsy")
   ],
   resolve: {
     extensions: [".js", ".ts", ".vue"],
@@ -61,3 +61,5 @@ export default {
     ],
   },
 };
+
+export default config;

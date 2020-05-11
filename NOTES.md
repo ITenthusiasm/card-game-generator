@@ -32,6 +32,9 @@
 
 - Common convention for functions in JavaScript like `forEach` is to name unused variables as `_`. For instance, `array.forEach((_, index => ...))`. If multiple unused variables are involved, then the common convention is to precede the variable name with an underscore (eg. `_item` instead of just `_`).
 
+- It seems adding TypeScript can screw up some of the normal intellisense. For instance, in our React Retro project (at least currently), we didn't have to install any explicit types for `express`. But now (likley because we have TypeScript and a TS config), we have to specify the `express` types by installing them. Similar things will probably need to happen for webpack if you want good typing.
+  - Types are very important when working with TypeScript. It can impact whether or not TypeScript even knows which overload you're using (and allows you to compile that overload). This makes us have to do some work with `process.env.PORT`.
+
 ### Web
 
 - [Helping ESLint resolve aliased imports](https://github.com/johvin/eslint-import-resolver-alias)

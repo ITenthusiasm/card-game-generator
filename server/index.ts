@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Initialize Configurations
-const port = process.env.PORT || 3000;
+const port = Number(process.env.PORT) || 3000;
 const compiler = webpack(config);
 
 // Setup express with webpack dev middleware.
