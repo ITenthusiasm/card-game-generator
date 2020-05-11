@@ -51,3 +51,5 @@
 - [Adding Hot Module Reloading](https://github.com/webpack-contrib/webpack-hot-middleware)
 
 - [Add Vue without CLI](https://www.freecodecamp.org/news/how-to-create-a-vue-js-app-using-single-file-components-without-the-cli-7e73e5b8244f/)
+
+- Note that the ESLint config seems very brittle when it comes to Vue. So be extremely careful with it.
