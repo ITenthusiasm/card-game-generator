@@ -59,3 +59,23 @@
   - [Using ESLint with Vue](https://vuejs.github.io/eslint-plugin-vue/user-guide/#installation). (Includes the complications of handling parsers.)
   - [Vue Component tags order](https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/component-tags-order.md)
   - [Vue Break on single line elements](https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/singleline-html-element-content-newline.md0). (No reasoning was given, this adds to lines of code, and it seems dumb...so no.)
+
+### Web Sockets and Server-Sent Events
+
+- Server-sent events allow a server to send information to the client. (Eg. the person in theh browser) It's only one way.
+- Web Sockets allow both the client and the server to send messages back and forth.
+- We found some good information on these topics that will be useful to know. Also remember that you have your own notes on [Node for Networking](https://github.com/XxX-MLGNoob-XxX/advanced-nodejs/tree/master/4-node-for-networking).
+- `Server-sent Events`
+  - [Excellent simple example of implementing server-sent events](https://auth0.com/blog/developing-real-time-web-applications-with-server-sent-events/). There are some places where the grammar is a little off. But the explanations are pretty solid.
+  - [MDN Server-sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)
+  - [MDN Using Server-sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)
+  - [Event Source](https://developer.mozilla.org/en-US/docs/Web/API/EventSource). (Used by JS client for handling server sent events.)
+- `Web Sockets`
+  - [MDN Web Sockets API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+  - [MDN Web Socket (JS object)](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
+  - [Wikipedia on Web Sockets](https://en.wikipedia.org/wiki/WebSocket)
+  - [Useful example of Web Sockets compared to Server-sent Events](https://medium.com/@joekarlsson/complete-guide-to-node-client-server-communication-b156440c029)
+  - [Simple example of using Web Sockets with Express](https://medium.com/factory-mind/websocket-node-js-express-step-by-step-using-typescript-725114ad5fe4). (This one may be over simplified. We had to test stuff out on our own.)
+  - [Web Socket NPM Package (`ws`)](https://github.com/websockets/ws). (This was the package used by the 2 previously listed examples. It seems to make things simpler than using Node's built in capabilities.)
+- `Cross Origin Resource Sharing (CORS)`
+  - [MDN on CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). (This will just be good to read up on in general.)
