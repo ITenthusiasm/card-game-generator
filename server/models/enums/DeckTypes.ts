@@ -1,7 +1,7 @@
 enum DeckTypes {
-  Classic,
-  Uno,
-  Codenames,
+  CLASSIC,
+  UNO,
+  CODENAMES,
 }
 
 export default DeckTypes;

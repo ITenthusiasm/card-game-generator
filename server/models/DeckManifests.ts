@@ -7,17 +7,17 @@ import { randomSample } from "../utils/algorithms";
 export type DeckManifest = Map<CardType, CardValue[]>;
 
 export const ClassicManifest: DeckManifest = new Map([
-  [CardTypes.Classic.Hearts, generateCardVals(ClassicSchematic)],
-  [CardTypes.Classic.Spades, generateCardVals(ClassicSchematic)],
-  [CardTypes.Classic.Diamonds, generateCardVals(ClassicSchematic)],
-  [CardTypes.Classic.Clubs, generateCardVals(ClassicSchematic)],
+  [CardTypes.Classic.HEARTS, generateCardVals(ClassicSchematic)],
+  [CardTypes.Classic.SPADES, generateCardVals(ClassicSchematic)],
+  [CardTypes.Classic.DIAMONDS, generateCardVals(ClassicSchematic)],
+  [CardTypes.Classic.CLUBS, generateCardVals(ClassicSchematic)],
 ]);
 
 export const UnoManifest: DeckManifest = new Map([
-  [CardTypes.Uno.Red, generateCardVals(UnoSchematic)],
-  [CardTypes.Uno.Yellow, generateCardVals(UnoSchematic)],
-  [CardTypes.Uno.Green, generateCardVals(UnoSchematic)],
-  [CardTypes.Uno.Blue, generateCardVals(UnoSchematic)],
+  [CardTypes.Uno.RED, generateCardVals(UnoSchematic)],
+  [CardTypes.Uno.YELLOW, generateCardVals(UnoSchematic)],
+  [CardTypes.Uno.GREEN, generateCardVals(UnoSchematic)],
+  [CardTypes.Uno.BLUE, generateCardVals(UnoSchematic)],
 ]);
 
 export function createCodenamesManifest(): DeckManifest {
@@ -33,24 +33,24 @@ export function createCodenamesManifest(): DeckManifest {
 
   // Randomly generate 7/8 UNIQUE red cards
   codenamesManifest.set(
-    CardTypes.Codenames.Red,
+    CardTypes.Codenames.RED,
     randomSample(codenameValues, redAmount, true)
   );
 
   // Randomly generate 8/7 UNIQUE blue cards from remaining cards
   codenamesManifest.set(
-    CardTypes.Codenames.Blue,
+    CardTypes.Codenames.BLUE,
     randomSample(codenameValues, blueAmount, true)
   );
 
   // Randomly generate 1 black card from remaining cards
   codenamesManifest.set(
-    CardTypes.Codenames.Black,
+    CardTypes.Codenames.BLACK,
     randomSample(codenameValues, 1, true)
   );
 
   // Assign brown to the remaining cards
-  codenamesManifest.set(CardTypes.Codenames.Brown, [...codenameValues]);
+  codenamesManifest.set(CardTypes.Codenames.BROWN, [...codenameValues]);
 
   return codenamesManifest;
 }

@@ -1,23 +1,23 @@
 // Consider declaring constants for enums with similar values
 
 export enum Classic {
-  Hearts = "Hearts",
-  Spades = "Spades",
-  Diamonds = "Diamonds",
-  Clubs = "Clubs",
+  HEARTS = "Hearts",
+  SPADES = "Spades",
+  DIAMONDS = "Diamonds",
+  CLUBS = "Clubs",
 }
 
 export enum Uno {
-  Red = "Red",
-  Blue = "Blue",
-  Green = "Green",
-  Yellow = "Yellow",
-  Wild = "Wild",
+  RED = "Red",
+  BLUE = "Blue",
+  GREEN = "Green",
+  YELLOW = "Yellow",
+  WILD = "Wild",
 }
 
 export enum Codenames {
-  Red = "Red",
-  Blue = "Blue",
-  Brown = "Brown",
-  Black = "Black",
+  RED = "Red",
+  BLUE = "Blue",
+  BROWN = "Brown",
+  BLACK = "Black",
 }

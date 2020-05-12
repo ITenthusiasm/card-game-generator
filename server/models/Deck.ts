@@ -18,13 +18,13 @@ class Deck {
 
     // Initialize Deck based on manifest.
     switch (this._type) {
-      case DeckTypes.Classic:
+      case DeckTypes.CLASSIC:
         this._manifest = ClassicManifest;
         break;
-      case DeckTypes.Uno:
+      case DeckTypes.UNO:
         this._manifest = UnoManifest;
         break;
-      case DeckTypes.Codenames:
+      case DeckTypes.CODENAMES:
         this._manifest = createCodenamesManifest();
         break;
       default:
@@ -65,13 +65,13 @@ class Deck {
   }
 }
 
-const classicDeck = new Deck(DeckTypes.Classic);
+const classicDeck = new Deck(DeckTypes.CLASSIC);
 const showClassic = false;
 
-const unoDeck = new Deck(DeckTypes.Uno);
+const unoDeck = new Deck(DeckTypes.UNO);
 const showUno = false;
 
-const codenamesDeck = new Deck(DeckTypes.Codenames);
+const codenamesDeck = new Deck(DeckTypes.CODENAMES);
 const showCodenames = true;
 
 classicDeck.shuffle();
