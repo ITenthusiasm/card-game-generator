@@ -8,24 +8,24 @@ import {
 } from "./DeckManifests";
 
 class Deck {
-  private _type: DeckTypes;
-  private _cards: Card[];
-  private _manifest: DeckManifest;
+  #type: DeckTypes;
+  #cards: Card[];
+  #manifest: DeckManifest;
 
   constructor(type: DeckTypes) {
-    this._type = type;
-    this._cards = [];
+    this.#type = type;
+    this.#cards = [];
 
     // Initialize Deck based on manifest.
-    switch (this._type) {
+    switch (this.#type) {
       case DeckTypes.CLASSIC:
-        this._manifest = ClassicManifest;
+        this.#manifest = ClassicManifest;
         break;
       case DeckTypes.UNO:
-        this._manifest = UnoManifest;
+        this.#manifest = UnoManifest;
         break;
       case DeckTypes.CODENAMES:
-        this._manifest = createCodenamesManifest();
+        this.#manifest = createCodenamesManifest();
         break;
       default:
         throw new Error(`Unsupported Deck Type: ${type}`);
@@ -35,62 +35,34 @@ class Deck {
   }
 
   private initializeDeck(): void {
-    this._manifest.forEach((values, cardType) => {
-      values.forEach(v => this._cards.push(new Card(cardType, v)));
+    this.#manifest.forEach((values, cardType) => {
+      values.forEach(v => this.#cards.push(new Card(cardType, v)));
     });
   }
 
   get type(): DeckTypes {
-    return this._type;
+    return this.#type;
   }
 
   get cards(): Card[] {
-    return this._cards;
+    return this.#cards;
   }
 
   get size(): number {
-    return this._cards.length;
+    return this.#cards.length;
   }
 
   draw(cardNumber = 1): Card[] {
-    return this._cards.splice(0, cardNumber);
+    return this.#cards.splice(0, cardNumber);
   }
 
   shuffle(): void {
     // Modern Fisher-Yates shuffle algorithm
-    for (let i = this._cards.length - 1; i > 0; i--) {
+    for (let i = this.#cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [this._cards[i], this._cards[j]] = [this._cards[j], this._cards[i]];
+      [this.#cards[i], this.#cards[j]] = [this.#cards[j], this.#cards[i]];
     }
   }
-}
-
-const classicDeck = new Deck(DeckTypes.CLASSIC);
-const showClassic = false;
-
-const unoDeck = new Deck(DeckTypes.UNO);
-const showUno = false;
-
-const codenamesDeck = new Deck(DeckTypes.CODENAMES);
-const showCodenames = true;
-
-classicDeck.shuffle();
-unoDeck.shuffle();
-codenamesDeck.shuffle();
-
-if (showClassic) {
-  console.log(classicDeck.cards);
-  console.log(classicDeck.size);
-}
-
-if (showUno) {
-  console.log(unoDeck.cards);
-  console.log(unoDeck.size);
-}
-
-if (showCodenames) {
-  console.log(codenamesDeck.cards);
-  console.log(codenamesDeck.size);
 }
 
 export default Deck;

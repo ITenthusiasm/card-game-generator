@@ -33,7 +33,32 @@
 - Common convention for functions in JavaScript like `forEach` is to name unused variables as `_`. For instance, `array.forEach((_, index => ...))`. If multiple unused variables are involved, then the common convention is to precede the variable name with an underscore (eg. `_item` instead of just `_`).
 
 - It seems adding TypeScript can screw up some of the normal intellisense. For instance, in our React Retro project (at least currently), we didn't have to install any explicit types for `express`. But now (likley because we have TypeScript and a TS config), we have to specify the `express` types by installing them. Similar things will probably need to happen for webpack if you want good typing.
+
   - Types are very important when working with TypeScript. It can impact whether or not TypeScript even knows which overload you're using (and allows you to compile that overload). This makes us have to do some work with `process.env.PORT`.
+
+- [Quick Simple Implementation for Unique ID's](https://gist.github.com/gordonbrander/2230317)
+
+- [Warning about declarations in JavaScript switch/case. Use blocks!](https://eslint.org/docs/rules/no-case-declarations)
+
+- [TypeScript now supports private fields in JavaScript](https://www.typescriptlang.org/docs/handbook/classes.html).
+
+- [TC39 Private fields](https://github.com/tc39/proposal-class-fields). Note that private fields are **_different_** from private methods. It doesn't seem like TypeScript supports those yet.
+
+  - If you use these, you'll need to update Babel, though. (At least until the new stuff gets merged.)
+
+- [Thoughts on ordering parts of a class](https://softwareengineering.stackexchange.com/questions/199311/most-human-friendly-way-to-order-class-method-definitions). Note that some people prefer grouping public, private, protected methods, etc. But that may not always be helpful (if it's helpful at all.)
+
+- [`Partial` can be used to make all the properties of an interface optional](https://stackoverflow.com/questions/39713349/make-all-properties-within-a-typescript-interface-optional).
+
+- [`JSDocs` will be worth understanding at some point](https://jsdoc.app/). We started implementing some _very_ lightly in `Codenames.ts`.
+
+### Quick Testing Server
+
+- `Deck`
+  - A quick way to test that your deck is working properly is simply to generate a new deck. Then, immediately shuffle it, and log it in the console. You'll find the size of the deck, as well as the array of cards particularly helpful to look at.
+- `Codenames Game`
+  - Testing a Codenames game may require a few runarounds. The simple way to do it is to use the `readline` built-in npm package. You can create an interface with the I/O streams using the `createInterface` method. Then, you can listen for events on the returned object. Use `rl.on("line", function(input))`. You can use it to force in your own cheaty actions as a player outside of the existing game. It should be quick enough, and you should easily be able to test win conditions. To observe other things like current player, you'll want to observe the `gameState`.
+- Remember that ideally, we'd want real, robust tests. At least right now, card games can be treated like a `Redux Reducer` to some extent.
 
 ### Web
 
