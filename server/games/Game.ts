@@ -8,6 +8,9 @@ abstract class Game {
   /** The current state of the game */
   protected _state: { active: boolean };
 
+  /** The settings of the game */
+  protected _settings: object;
+
   constructor(deckType: DeckTypes, players: Player[]) {
     this._players = players;
     this._deck = new Deck(deckType);

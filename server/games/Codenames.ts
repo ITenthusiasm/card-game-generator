@@ -1,4 +1,5 @@
 import Game from "./Game";
+import * as Settings from "./settings/CodenamesSettings";
 import { Player, Card } from "../models";
 import { DeckTypes, Roles, Actions, CardTypes } from "../models/enums";
 import { Action } from "../models/enums/types";
@@ -20,6 +21,11 @@ interface CodenamesState {
   winningTeam: CardTypes.Codenames.RED | CardTypes.Codenames.BLUE;
 }
 
+interface CodenamesSettings {
+  revealers: Settings.Revealers;
+  timer: boolean;
+}
+
 /** Class representing a Codenames Game */
 class Codenames extends Game {
   protected _state: CodenamesState;
@@ -27,9 +33,16 @@ class Codenames extends Game {
   /** The index of the currently active player */
   #playerIndex: number;
 
-  constructor(players: Player[]) {
+  constructor(players: Player[], settings?: CodenamesSettings) {
     super(DeckTypes.CODENAMES, players);
     this._state = {} as CodenamesState;
+
+    const defaultSettings = {
+      revealers: Settings.Revealers.MASTERS_ONLY,
+      timer: false,
+    };
+
+    this._settings = Object.assign(defaultSettings, settings);
   }
 
   start(): void {
