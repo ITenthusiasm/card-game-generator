@@ -4,7 +4,9 @@ import { DeckTypes } from "../models/enums";
 abstract class Game {
   protected _deck: Deck;
   protected _players: Player[];
-  protected _state: { active?: boolean };
+
+  /** The current state of the game */
+  protected _state: { active: boolean };
 
   constructor(deckType: DeckTypes, players: Player[]) {
     this._players = players;

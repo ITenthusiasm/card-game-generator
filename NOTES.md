@@ -52,6 +52,10 @@
 
 - [`JSDocs` will be worth understanding at some point](https://jsdoc.app/). We started implementing some _very_ lightly in `Codenames.ts`.
 
+- [String enums are not so easy in TypeScript](https://github.com/Microsoft/TypeScript/issues/20440). Is it worth converting to numbers in certain circumstances in order to centralize things and avoid some "duplication"? Perhaps not... That might only work in certain circumstances...like with colors and numbers. It's hard to say.
+
+- [Typescript: Defining an array of multiple types](https://stackoverflow.com/questions/29382389/defining-array-with-multiple-types-in-typescript).
+
 ### Quick Testing Server
 
 - `Deck`

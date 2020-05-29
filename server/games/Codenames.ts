@@ -9,7 +9,7 @@ interface Code {
 }
 
 interface CodenamesCard extends Card {
-  revealed?: boolean;
+  revealed: boolean;
 }
 
 interface CodenamesState {
@@ -22,16 +22,14 @@ interface CodenamesState {
 
 /** Class representing a Codenames Game */
 class Codenames extends Game {
-  /** The current state of the game */
-  protected _state: Partial<CodenamesState>;
+  protected _state: CodenamesState;
 
   /** The index of the currently active player */
   #playerIndex: number;
 
   constructor(players: Player[]) {
     super(DeckTypes.CODENAMES, players);
-    this._state = {};
-    this.start();
+    this._state = {} as CodenamesState;
   }
 
   start(): void {
@@ -45,7 +43,7 @@ class Codenames extends Game {
 
     // Shuffle decke and grab cards
     this._deck.shuffle();
-    this._state.cards = this._deck.draw(this._deck.size);
+    this._state.cards = this._deck.draw(this._deck.size) as CodenamesCard[];
 
     // Determine if red or blue goes first
     const redAmount = this._state.cards.filter(c => c.type === RED);
@@ -170,6 +168,12 @@ class Codenames extends Game {
 
   end(): void {
     this._state.active = false;
+  }
+
+  /** The teams supported in the game */
+  static get teams(): string[] {
+    // Because the Codenames teams are invariably linked to the card types, they are based on the card types.
+    return [CardTypes.Codenames.RED, CardTypes.Codenames.BLUE];
   }
 }
 
