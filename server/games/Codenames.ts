@@ -15,9 +15,13 @@ interface CodenamesCard extends Card {
 interface CodenamesState {
   active: boolean;
   cards: CodenamesCard[];
-  codes: { Red: Code[]; Blue: Code[] };
+  codes: {
+    [CardTypes.Codenames.RED]: Code[];
+    [CardTypes.Codenames.BLUE]: Code[];
+  };
   guesses: number;
   winningTeam: CardTypes.Codenames.RED | CardTypes.Codenames.BLUE;
+  error: string;
 }
 
 /** Class representing a Codenames Game */
@@ -32,18 +36,24 @@ class Codenames extends Game {
     this._state = {} as CodenamesState;
   }
 
-  start(): void {
+  start(): CodenamesState {
     const { RED, BLUE } = CardTypes.Codenames;
 
     // Validate players
     if (!this.playersValid) {
-      console.error("Invalid player setup");
-      return;
+      const errorMessage = "Invalid Player setup";
+      console.error(errorMessage);
+      this._state.error = errorMessage;
+
+      return this._state;
     }
 
     // Shuffle decke and grab cards
     this._deck.shuffle();
     this._state.cards = this._deck.draw(this._deck.size) as CodenamesCard[];
+
+    // Initialize codes
+    this._state.codes = { [RED]: [], [BLUE]: [] };
 
     // Determine if red or blue goes first
     const redAmount = this._state.cards.filter(c => c.type === RED);
@@ -60,6 +70,9 @@ class Codenames extends Game {
 
     // Start the game
     this._state.active = true;
+
+    console.log("Game started!");
+    return this._state;
   }
 
   private get playersValid(): boolean {
@@ -94,6 +107,8 @@ class Codenames extends Game {
         this._state.guesses = code.number + 1;
 
         this._players[this.#playerIndex].actions = [Actions.Codenames.REVEAL];
+
+        console.log(`Player ${player.name} gave code: `, code);
         return this._state;
       }
       case Actions.Codenames.REVEAL: {
@@ -106,6 +121,8 @@ class Codenames extends Game {
         } else {
           this._state.guesses = 0;
         }
+
+        console.log(`Player ${player.name} revealed card: `, card);
 
         if (this.winConditionReached) {
           const gameCards = this._state.cards;
@@ -121,6 +138,7 @@ class Codenames extends Game {
             this._state.winningTeam = player.team === RED ? BLUE : RED;
           }
 
+          console.log(`Team ${this._state.winningTeam} wins!`);
           this.end();
         } else if (!this._state.guesses) {
           this.setNextPlayer();
@@ -168,6 +186,7 @@ class Codenames extends Game {
 
   end(): void {
     this._state.active = false;
+    console.log("Game ended!");
   }
 
   /** The teams supported in the game */

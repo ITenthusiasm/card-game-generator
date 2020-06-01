@@ -74,6 +74,10 @@
     {
       "files": ["src/main.ts"],
       "rules": { "@typescript-eslint/explicit-function-return-type": "off" }
+    },
+    {
+      "files": ["src/store/*"],
+      "rules": { "no-param-reassign": "off" }
     }
   ]
 }

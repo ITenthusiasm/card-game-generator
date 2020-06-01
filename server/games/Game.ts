@@ -1,5 +1,6 @@
 import { Deck, Player } from "../models";
 import { DeckTypes } from "../models/enums";
+import { Action } from "../models/enums/types";
 
 abstract class Game {
   protected _deck: Deck;
@@ -14,6 +15,7 @@ abstract class Game {
   }
 
   abstract start(): void;
+  abstract handleAction(player: Player, action: Action, item: object): object;
   abstract end(): void;
 }
 

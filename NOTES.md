@@ -85,9 +85,25 @@
 - [Add Vue without CLI](https://www.freecodecamp.org/news/how-to-create-a-vue-js-app-using-single-file-components-without-the-cli-7e73e5b8244f/)
 
 - Note that the ESLint config seems very brittle when it comes to Vue. So be extremely careful with it.
+
   - [Using ESLint with Vue](https://vuejs.github.io/eslint-plugin-vue/user-guide/#installation). (Includes the complications of handling parsers.)
   - [Vue Component tags order](https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/component-tags-order.md)
   - [Vue Break on single line elements](https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/singleline-html-element-content-newline.md0). (No reasoning was given, this adds to lines of code, and it seems dumb...so no.)
+
+- [Vue recommendations for ordering of component options](https://vuejs.org/v2/style-guide/#Component-instance-options-order-recommended)
+
+- [Understanding the default options in VueLoaderPlugin](https://vue-loader.vuejs.org/options.html#transformasseturls). This also reveals why you need to install `vue-template-compiler`, even though it _seems_ like you're not using it anywhere. (Really it's being used by default behind the scenes.)
+
+- [The order of your express routes matters, especially when using `app.use`](https://stackoverflow.com/questions/58177916/express-array-of-routes).
+
+- [How to use JSON stringify with getters in a simple way](https://stackoverflow.com/questions/42107492/json-stringify-es6-class-property-with-getter-setter). `JSON.stringify` doesn't do anything with functions. So getters and setters don't give you anything. The first solution is a quick and simple work around. Perhaps there are more options too?
+
+  - Note that with this simple solution, there's no way to guarantee that players won't manipulate their own data on the client side (because getters won't be properly hidden behind getters anymore), though the server data will certainly stay pure. This is why a more robust solution would be useful.
+  - [A more robust version of the simple solution (_doesn't resolve the getter no longer being a getter_)](https://github.com/Microsoft/TypeScript/issues/16858#issuecomment-384715673)
+
+- [MDN `toJSON` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior).
+
+- [Animating box shadow](https://tobiasahlin.com/blog/how-to-animate-box-shadow/).
 
 ### Web Sockets and Server-Sent Events
 

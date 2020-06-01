@@ -26,6 +26,15 @@ class Lobby {
   }
 
   /** Add a new player to the lobby */
+  addNewPlayer(name: string): Player {
+    const player = new Player({ name });
+    this.#players.push(player);
+    if (!this.#host) this.#host = player.id;
+
+    return player;
+  }
+
+  /** Add a player back into the lobby */
   addPlayer(player: Player): void {
     this.#players.push(Object.assign(player));
     if (!this.#host) this.#host = player.id;
