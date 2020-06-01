@@ -124,3 +124,8 @@
   - [Web Socket NPM Package (`ws`)](https://github.com/websockets/ws). (This was the package used by the 2 previously listed examples. It seems to make things simpler than using Node's built in capabilities.)
 - `Cross Origin Resource Sharing (CORS)`
   - [MDN on CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). (This will just be good to read up on in general.)
+
+### Extra
+
+- [JSDocs](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html). This is good for keeping helpful documentation. This helps Visual Studio Code's intellisense too.
+- [The JSDoc tags that TypeScript supports](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html). This is important to help you understand what JSDoc tags will and won't work with Typescript. Note that even if some things don't work, they could still be worth learning and using. (This is especially helpful if you convert back to JS for any reason.)
