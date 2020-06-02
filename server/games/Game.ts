@@ -23,15 +23,18 @@ abstract class Game {
     this._deck = new Deck(deckType);
   }
 
-  /** Starts the game. */
-  abstract start(): void;
+  /**
+   * Starts the game.
+   * @return {object} The initial state of the game.
+   */
+  abstract start(): object;
 
   /**
    * Handles an action from the player to determine how the game should progress.
    * @param player - The player committing the action.
    * @param action - The action the player committed.
    * @param item - The item the player used to commit the action (a card, a code, etc.).
-   * @return {object} - The new state resulting from the action the player committed.
+   * @return {object} The new state resulting from the action the player committed.
    */
   abstract handleAction(player: Player, action: Action, item: object): object;
 

@@ -3,6 +3,11 @@ import { Player, Card } from "../models";
 import { DeckTypes, Roles, Actions, CardTypes } from "../models/enums";
 import { Action } from "../models/enums/types";
 
+// Destructure card type colors for common usage throughout the file.
+// This is more justifiable since everything is dictated by card
+// color (teams, code arrays, etc.). Not all games work this way.
+const { RED, BLUE, BLACK } = CardTypes.Codenames;
+
 interface Code {
   word: string;
   number: number;
@@ -15,30 +20,29 @@ interface CodenamesCard extends Card {
 interface CodenamesState {
   active: boolean;
   cards: CodenamesCard[];
-  codes: {
-    [CardTypes.Codenames.RED]: Code[];
-    [CardTypes.Codenames.BLUE]: Code[];
-  };
+  codes: { [RED]: Code[]; [BLUE]: Code[] };
   guesses: number;
-  winningTeam: CardTypes.Codenames.RED | CardTypes.Codenames.BLUE;
+  winningTeam: typeof RED | typeof BLUE;
   error: string;
 }
 
-/** Class representing a Codenames Game */
+/** Class representing a Codenames game */
 class Codenames extends Game {
   protected _state: CodenamesState;
 
   /** The index of the currently active player */
   #playerIndex: number;
 
+  /**
+   * Create a Codenames game
+   * @param players - The players in the game
+   */
   constructor(players: Player[]) {
     super(DeckTypes.CODENAMES, players);
     this._state = {} as CodenamesState;
   }
 
   start(): CodenamesState {
-    const { RED, BLUE } = CardTypes.Codenames;
-
     // Validate players
     if (!this.playersValid) {
       const errorMessage = "Invalid Player setup";
@@ -78,7 +82,6 @@ class Codenames extends Game {
   private get playersValid(): boolean {
     const players = this._players;
     const { CODEMASTER } = Roles.Codenames;
-    const { RED, BLUE } = CardTypes.Codenames;
 
     // Verify that there's only 1 red and blue codemaster respectively
     return (
@@ -126,7 +129,6 @@ class Codenames extends Game {
 
         if (this.winConditionReached) {
           const gameCards = this._state.cards;
-          const { RED, BLUE, BLACK } = CardTypes.Codenames;
 
           if (!gameCards.filter(c => c.type === RED).some(c => !c.revealed)) {
             this._state.winningTeam = RED;
@@ -175,7 +177,6 @@ class Codenames extends Game {
 
   private get winConditionReached(): boolean {
     const gameCards = this._state.cards;
-    const { RED, BLUE, BLACK } = CardTypes.Codenames;
 
     return (
       !gameCards.filter(c => c.type === RED).some(c => !c.revealed) ||
@@ -192,7 +193,7 @@ class Codenames extends Game {
   /** The teams supported in the game */
   static get teams(): string[] {
     // Because the Codenames teams are invariably linked to the card types, they are based on the card types.
-    return [CardTypes.Codenames.RED, CardTypes.Codenames.BLUE];
+    return [RED, BLUE];
   }
 }
 
