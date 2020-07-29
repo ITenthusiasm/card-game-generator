@@ -1,3 +1,5 @@
+# Notes
+
 ### Server
 
 - [Using babel to execute typescript](https://github.com/babel/babel/issues/6353)
