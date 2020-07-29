@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="sendPlayerInfo">
+  <form align="center" @submit.prevent="sendPlayerInfo">
     <label class="input-label" for="name">Player Name</label>
     <input id="name" v-model="playerName" class="text-box" type="text" />
   </form>
@@ -9,7 +9,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "Login",
+  name: "Home",
   data() {
     return {
       playerName: "",

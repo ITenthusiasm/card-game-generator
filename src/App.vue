@@ -2,6 +2,7 @@
   <div id="root">
     <header>
       <h1 align="center">Fun Card Games (Experiment)</h1>
+      <h3 align="center">Player: {{ player && `${player.name} | ${player.id}` }}</h3>
     </header>
     <main>
       <router-view />
