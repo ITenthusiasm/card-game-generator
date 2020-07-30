@@ -23,18 +23,19 @@ export default Vue.extend({
     color(): string {
       if (this.card.revealed) return "white";
 
-      switch (this.playerRole) {
-        case "Codemaster":
-          return this.mapColor(this.card.type);
-        default:
-          return "black";
-      }
+      if (this.playerRole === "Codemaster" || this.gameState === "Completed")
+        return this.mapColor(this.card.type);
+
+      return "black";
     },
     backgroundColor(): string {
       return this.card.revealed ? this.mapColor(this.card.type) : "white";
     },
     playerRole(): string {
       return this.$store.state.player.role;
+    },
+    gameState(): string {
+      return this.$store.state.gameState.status;
     },
   },
   methods: {
