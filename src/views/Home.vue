@@ -19,6 +19,7 @@ export default Vue.extend({
     sendPlayerInfo(): void {
       if (this.playerName.trim().length) {
         this.$store.dispatch("addNewPlayer", this.playerName);
+        this.$router.push("/lobby");
       }
 
       this.playerName = "";

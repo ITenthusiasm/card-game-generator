@@ -21,21 +21,21 @@ const compiler = webpack(config);
 
 // Setup express with webpack dev middleware.
 app.use(
-  ["/login", "/"],
+  ["/lobby", "/"],
   webpackDevMiddleware(compiler, {
     logLevel: "silent",
   })
 );
 
 // Setup express with webpack hot middleware.
-app.use(["/login", "/"], webpackHotMiddleware(compiler));
+app.use(["/lobby", "/"], webpackHotMiddleware(compiler));
 
 /* All Server Functionality */
 app.get("/favicon.ico", function (req, res) {
   res.sendFile(path.join(__dirname, "../public/favicon.ico"));
 });
 
-app.get(["/login", "/"], async function (req, res) {
+app.get(["/lobby", "/"], async function (req, res) {
   const htmlFile = await fs.readFile(
     path.join(__dirname, "../public/index.html"),
     "utf-8"
