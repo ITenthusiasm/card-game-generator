@@ -161,25 +161,38 @@ class Codenames extends Game {
     }
   }
 
-  private setNextPlayer(move = 1): void {
-    const totalPlayers = this._players.length;
-
-    if (move > totalPlayers) {
-      console.log(`Cannot move more than ${totalPlayers} players forward.`);
-      return;
-    }
-    if (move <= 0) {
-      console.log(`You must move at least 1 player forward.`);
-      return;
-    }
-
-    // Set the current player inactive. Then set the next player active.
+  private setNextPlayer(): void {
     this._players[this.#playerIndex].active = false;
 
-    this.#playerIndex = (this.#playerIndex + move) % totalPlayers;
+    // Assumes proper setup of players. See "playersValid()" and "start()".
+    this.#playerIndex = this._players.findIndex(
+      (p, i) => i !== this.#playerIndex && p.role === Roles.Codenames.CODEMASTER
+    );
+
     this._players[this.#playerIndex].active = true;
     this._players[this.#playerIndex].actions = [Actions.Codenames.GIVE_CODE];
   }
+
+  /* Deprecated. Has great implementation for regular card games, so it is being saved for later. */
+  // private setNextPlayer(move: 1): void {
+  //   const totalPlayers = this._players.length;
+
+  //   if (move > totalPlayers) {
+  //     console.log(`Cannot move more than ${totalPlayers} players forward.`);
+  //     return;
+  //   }
+  //   if (move <= 0) {
+  //     console.log(`You must move at least 1 player forward.`);
+  //     return;
+  //   }
+
+  //   // Set the current player inactive. Then set the next player active.
+  //   this._players[this.#playerIndex].active = false;
+
+  //   this.#playerIndex = (this.#playerIndex + move) % totalPlayers;
+  //   this._players[this.#playerIndex].active = true;
+  //   this._players[this.#playerIndex].actions = [Actions.Codenames.GIVE_CODE];
+  // }
 
   private get winConditionReached(): boolean {
     const gameCards = this._state.cards;
