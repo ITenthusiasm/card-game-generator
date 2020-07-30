@@ -13,7 +13,7 @@
       </form>
     </div>
     <button class="button" @click="startGame">start game</button>
-    <Codenames v-if="gameState.active" />
+    <Codenames v-if="gameState.status !== 'Inactive'" />
   </div>
 </template>
 

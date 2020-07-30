@@ -1,6 +1,12 @@
 import Game from "./Game";
 import { Player, Card } from "../models";
-import { DeckTypes, Roles, Actions, CardTypes } from "../models/enums";
+import {
+  DeckTypes,
+  GameStatus,
+  Roles,
+  Actions,
+  CardTypes,
+} from "../models/enums";
 import { Action } from "../models/enums/types";
 
 // Destructure card type colors for common usage throughout the file.
@@ -18,7 +24,7 @@ interface CodenamesCard extends Card {
 }
 
 interface CodenamesState {
-  active: boolean;
+  status: GameStatus;
   cards: CodenamesCard[];
   codes: { [RED]: Code[]; [BLUE]: Code[] };
   guesses: number;
@@ -39,7 +45,7 @@ class Codenames extends Game {
    */
   constructor(players: Player[]) {
     super(DeckTypes.CODENAMES, players);
-    this._state = {} as CodenamesState;
+    this._state = { status: GameStatus.INACTIVE } as CodenamesState;
   }
 
   start(): CodenamesState {
@@ -73,7 +79,7 @@ class Codenames extends Game {
     this._players[this.#playerIndex].actions = [Actions.Codenames.GIVE_CODE];
 
     // Start the game
-    this._state.active = true;
+    this._state.status = GameStatus.ACTIVE;
 
     console.log("Game started!");
     return this._state;
@@ -92,7 +98,7 @@ class Codenames extends Game {
   }
 
   handleAction(player: Player, action: Action, item: Card | Code): any {
-    if (!this._state.active) {
+    if (this._state.status !== GameStatus.ACTIVE) {
       console.error("Error: Game is not active.");
       return this._state;
     }
@@ -186,7 +192,7 @@ class Codenames extends Game {
   }
 
   end(): void {
-    this._state.active = false;
+    this._state.status = GameStatus.COMPLETED;
     console.log("Game ended!");
   }
 

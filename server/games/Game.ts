@@ -1,5 +1,5 @@
 import { Deck, Player } from "../models";
-import { DeckTypes } from "../models/enums";
+import { DeckTypes, GameStatus } from "../models/enums";
 import { Action } from "../models/enums/types";
 
 /** Class representing a card game. */
@@ -11,7 +11,7 @@ abstract class Game {
   protected _players: Player[];
 
   /** The current state of the game. */
-  protected _state: { active: boolean };
+  protected _state: { status: GameStatus };
 
   /**
    * Create a card game.
