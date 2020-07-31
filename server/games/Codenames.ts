@@ -1,5 +1,5 @@
 import Game from "./Game";
-import { Player, Card } from "../models";
+import { Player, Deck, Card } from "../models";
 import {
   DeckTypes,
   GameStatus,
@@ -49,6 +49,15 @@ class Codenames extends Game {
   }
 
   start(): CodenamesState {
+    // Ensure the game is only started once
+    if (this._state.status !== GameStatus.INACTIVE) {
+      const errorMessage = "Game already in progress";
+      console.error(errorMessage);
+      this._state.error = errorMessage;
+
+      return this._state;
+    }
+
     // Validate players
     if (!this.playersValid) {
       const errorMessage = "Invalid Player setup";
@@ -207,6 +216,29 @@ class Codenames extends Game {
   end(): void {
     this._state.status = GameStatus.COMPLETED;
     console.log("Game ended!");
+  }
+
+  reset(): CodenamesState {
+    if (this._state.status === GameStatus.INACTIVE) {
+      const errorMessage = "The game has not started yet";
+      console.error(errorMessage);
+      this._state.error = errorMessage;
+
+      return this._state;
+    }
+
+    this._deck = new Deck(DeckTypes.CODENAMES);
+    this._state = { status: GameStatus.INACTIVE } as CodenamesState;
+
+    this._players.forEach(p => {
+      p.team = null;
+      p.role = null;
+      p.actions = null;
+    });
+
+    console.log("Game was reset!");
+
+    return this._state;
   }
 
   /** The teams supported in the game */

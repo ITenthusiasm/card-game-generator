@@ -13,7 +13,8 @@
       </form>
     </div>
     <button class="button" @click="startGame">start game</button>
-    <Codenames v-if="gameState.status !== 'Inactive'" />
+    <button class="button" @click="resetGame">new game</button>
+    <Codenames v-if="gameState.status && gameState.status !== 'Inactive'" />
   </div>
 </template>
 
@@ -41,6 +42,9 @@ export default Vue.extend({
     },
     startGame(): void {
       this.$store.dispatch("startGame");
+    },
+    resetGame(): void {
+      this.$store.dispatch("resetGame");
     },
   },
 });

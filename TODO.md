@@ -6,3 +6,4 @@
 [ ] Need a way to restart a `Codenames` game.
 [ ] Codes cannot be given that include the name of a card.
 [ ] Make sure code is clean (relatively) on backend/frontend and fleshed out before moving onto a new game implementation.
+[ ] Prevent abuse of game resets.

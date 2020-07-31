@@ -94,26 +94,29 @@ wss.on("connection", function (webSocket) {
       case "START_GAME": {
         const gameState = lobby.game.start();
 
-        wss.clients.forEach(ws =>
-          ws.send(`SET_GAME_STATE|${JSON.stringify(gameState)}`)
-        );
-
-        wss.clients.forEach(ws =>
-          ws.send(`UPDATE_PLAYERS|${JSON.stringify(lobby.players)}`)
-        );
+        wss.clients.forEach(ws => {
+          ws.send(`SET_GAME_STATE|${JSON.stringify(gameState)}`);
+          ws.send(`UPDATE_PLAYERS|${JSON.stringify(lobby.players)}`);
+        });
         break;
       }
       case "HANDLE_ACTION": {
         const { player, action, item } = data;
         const newState = lobby.game.handleAction(player, action, item);
 
-        wss.clients.forEach(ws =>
-          ws.send(`SET_GAME_STATE|${JSON.stringify(newState)}`)
-        );
+        wss.clients.forEach(ws => {
+          ws.send(`SET_GAME_STATE|${JSON.stringify(newState)}`);
+          ws.send(`UPDATE_PLAYERS|${JSON.stringify(lobby.players)}`);
+        });
+        break;
+      }
+      case "RESET_GAME": {
+        const gameState = lobby.game.reset();
 
-        wss.clients.forEach(ws =>
-          ws.send(`UPDATE_PLAYERS|${JSON.stringify(lobby.players)}`)
-        );
+        wss.clients.forEach(ws => {
+          ws.send(`SET_GAME_STATE|${JSON.stringify(gameState)}`);
+          ws.send(`UPDATE_PLAYERS|${JSON.stringify(lobby.players)}`);
+        });
         break;
       }
       default: {

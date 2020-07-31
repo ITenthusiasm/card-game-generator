@@ -60,6 +60,9 @@ const store = new Vuex.Store({
 
       webSocket.send(`HANDLE_ACTION|${JSON.stringify(actionInfo)}`);
     },
+    resetGame(): void {
+      webSocket.send("RESET_GAME");
+    },
   },
   getters: {},
 });

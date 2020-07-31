@@ -40,6 +40,9 @@ abstract class Game {
 
   /** Ends the game. */
   abstract end(): void;
+
+  /** Resets the game, creating a new deck and clearing any relevant data. */
+  abstract reset(): object;
 }
 
 export default Game;
