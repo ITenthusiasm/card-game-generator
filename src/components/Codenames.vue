@@ -38,8 +38,10 @@ export default Vue.extend({
   computed: mapState(["gameState"]),
   methods: {
     sendCode(): void {
-      if (this.word.trim().length && !isNaN(Number(this.number))) {
-        const code = { word: this.word, number: Number(this.number) };
+      const number = Number(this.number);
+
+      if (this.word.trim().length && Number.isInteger(number) && number >= 0) {
+        const code = { word: this.word, number };
         const data = { action: "Give Code", item: code };
 
         this.$store.dispatch("handleAction", data);

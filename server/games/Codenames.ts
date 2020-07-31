@@ -1,12 +1,6 @@
 import Game from "./Game";
 import { Player, Deck, Card } from "../models";
-import {
-  DeckTypes,
-  GameStatus,
-  Roles,
-  Actions,
-  CardTypes,
-} from "../models/enums";
+import { DeckTypes, GameStatus, Roles, Actions, CardTypes } from "../models/enums";
 import { Action } from "../models/enums/types";
 
 // Destructure card type colors for common usage throughout the file.
@@ -79,9 +73,13 @@ class Codenames extends Game {
     const blueAmount = this._state.cards.filter(c => c.type === BLUE);
 
     if (redAmount > blueAmount) {
-      this.#playerIndex = this._players.findIndex(p => p.team === RED);
+      this.#playerIndex = this._players.findIndex(
+        p => p.role === Roles.Codenames.CODEMASTER && p.team === RED
+      );
     } else {
-      this.#playerIndex = this._players.findIndex(p => p.team === BLUE);
+      this.#playerIndex = this._players.findIndex(
+        p => p.role === Roles.Codenames.CODEMASTER && p.team === BLUE
+      );
     }
 
     this._players[this.#playerIndex].active = true;
@@ -100,13 +98,12 @@ class Codenames extends Game {
 
     // Verify that there's only 1 red and blue codemaster respectively
     return (
-      players.filter(p => p.role === CODEMASTER && p.team === RED).length ===
-        1 &&
+      players.filter(p => p.role === CODEMASTER && p.team === RED).length === 1 &&
       players.filter(p => p.role === CODEMASTER && p.team === BLUE).length === 1
     );
   }
 
-  handleAction(player: Player, action: Action, item: Card | Code): any {
+  handleAction(player: Player, action: Action, item: Card | Code): CodenamesState {
     if (this._state.status !== GameStatus.ACTIVE) {
       console.error("Error: Game is not active.");
       return this._state;
@@ -114,19 +111,30 @@ class Codenames extends Game {
 
     if (!player.active || !player.actions.includes(action)) {
       // Maybe needs a warning message... Or maybe UI can do that.
-      console.error(`Illegal action from player ${player.name} ignored.`);
+      console.error(`Illegal action from player ${player.name} (${player.id}) ignored.`);
       return this._state;
     }
 
     switch (action) {
       case Actions.Codenames.GIVE_CODE: {
         const code = item as Code;
+
+        // Validate code
+        if (!Number.isInteger(code.number) || code.number < 0) {
+          console.error("Invalide code: ", code, ". Number must be a positive integer.");
+          return this._state;
+        } else if (this._state.cards.some(c => c.value === code.word)) {
+          console.error("Invalid code: ", code, ". Code cannot be an existing card.");
+          return this._state;
+        }
+
+        // Confirm code
         this._state.codes[player.team].push(code);
         this._state.guesses = code.number + 1;
 
         this._players[this.#playerIndex].actions = [Actions.Codenames.REVEAL];
 
-        console.log(`Player ${player.name} gave code: `, code);
+        console.log(`Player ${player.name} (${player.id}) gave code: `, code);
         return this._state;
       }
       case Actions.Codenames.REVEAL: {
@@ -140,16 +148,14 @@ class Codenames extends Game {
           this._state.guesses = 0;
         }
 
-        console.log(`Player ${player.name} revealed card: `, card);
+        console.log(`Player ${player.name} (${player.id}) revealed card: `, card);
 
         if (this.winConditionReached) {
           const gameCards = this._state.cards;
 
-          if (!gameCards.filter(c => c.type === RED).some(c => !c.revealed)) {
+          if (gameCards.filter(c => c.type === RED).every(c => c.revealed)) {
             this._state.winningTeam = RED;
-          } else if (
-            !gameCards.filter(c => c.type === BLUE).some(c => !c.revealed)
-          ) {
+          } else if (gameCards.filter(c => c.type === BLUE).every(c => c.revealed)) {
             this._state.winningTeam = BLUE;
           } else if (gameCards.find(c => c.type === BLACK).revealed) {
             this._state.winningTeam = player.team === RED ? BLUE : RED;
@@ -207,8 +213,8 @@ class Codenames extends Game {
     const gameCards = this._state.cards;
 
     return (
-      !gameCards.filter(c => c.type === RED).some(c => !c.revealed) ||
-      !gameCards.filter(c => c.type === BLUE).some(c => !c.revealed) ||
+      gameCards.filter(c => c.type === RED).every(c => c.revealed) ||
+      gameCards.filter(c => c.type === BLUE).every(c => c.revealed) ||
       gameCards.find(c => c.type === BLACK).revealed
     );
   }

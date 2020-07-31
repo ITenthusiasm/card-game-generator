@@ -1,3 +1,9 @@
 {
-  "arrowParens": "avoid"
+  "arrowParens": "avoid",
+  "overrides": [
+    {
+      "files": "server/games/Codenames.ts",
+      "options": { "printWidth": 90 }
+    }
+  ]
 }

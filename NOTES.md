@@ -131,3 +131,4 @@
 
 - [JSDocs](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html). This is good for keeping helpful documentation. This helps Visual Studio Code's intellisense too.
 - [The JSDoc tags that TypeScript supports](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html). This is important to help you understand what JSDoc tags will and won't work with Typescript. Note that even if some things don't work, they could still be worth learning and using. (This is especially helpful if you convert back to JS for any reason.)
+- [Prettier overrides](https://prettier.io/docs/en/configuration.html#configuration-overrides)
