@@ -2,7 +2,9 @@
   <div id="root">
     <header>
       <h1 align="center">Fun Card Games (Experiment)</h1>
-      <h3 align="center" v-if="player">Player: {{ `${player.name} | ${player.id}` }}</h3>
+      <h3 v-if="player" align="center">
+        Player: {{ `${player.name} | ${player.id}` }}
+      </h3>
     </header>
     <main>
       <router-view />

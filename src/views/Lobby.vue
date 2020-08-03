@@ -4,10 +4,10 @@
     <div v-if="selectedGame">
       <form @submit.prevent="updatePlayerInfo">
         <label for="team">Team</label>
-        <input id="team" v-model="playerTeam" type="text" />
+        <BaseInput id="team" v-model="playerTeam" />
 
         <label for="role">Role</label>
-        <input id="role" v-model="playerRole" type="text" />
+        <BaseInput id="role" v-model="playerRole" />
 
         <button type="submit">Send Player Data</button>
       </form>

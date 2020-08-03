@@ -107,6 +107,9 @@
 
 - [Animating box shadow](https://tobiasahlin.com/blog/how-to-animate-box-shadow/).
 
+- [Using v-model on components](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components)
+- [Custom events with components (example includes v-model)](https://vuejs.org/v2/guide/components-custom-events.html)
+
 ### Web Sockets and Server-Sent Events
 
 - Server-sent events allow a server to send information to the client. (Eg. the person in theh browser) It's only one way.
@@ -132,3 +135,5 @@
 - [JSDocs](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html). This is good for keeping helpful documentation. This helps Visual Studio Code's intellisense too.
 - [The JSDoc tags that TypeScript supports](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html). This is important to help you understand what JSDoc tags will and won't work with Typescript. Note that even if some things don't work, they could still be worth learning and using. (This is especially helpful if you convert back to JS for any reason.)
 - [Prettier overrides](https://prettier.io/docs/en/configuration.html#configuration-overrides)
+- [Using `require.context` (webpack-specific) with Typescript](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18446)
+- [Vue's "Automatic Global Registration"](https://vuejs.org/v2/guide/components-registration.html#Automatic-Global-Registration-of-Base-Components)
