@@ -2,10 +2,10 @@
   <div>
     <form @submit.prevent="sendCode">
       <label for="code-word">Code</label>
-      <input id="code-word" v-model="word" />
+      <BaseInput id="code-word" v-model="word" />
 
       <label for="code-number">Number</label>
-      <input id="code-number" v-model="number" />
+      <BaseInput id="code-number" v-model="number" />
 
       <button type="submit">SEND CODE</button>
     </form>

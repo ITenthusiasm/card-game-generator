@@ -4,10 +4,18 @@
     <div v-if="selectedGame">
       <form @submit.prevent="updatePlayerInfo">
         <label for="team">Team</label>
-        <BaseInput id="team" v-model="playerTeam" />
+        <BaseSelect id="team" v-model="playerTeam">
+          <option value="" disabled>Select a team</option>
+          <option value="Red">Red</option>
+          <option value="Blue">Blue</option>
+        </BaseSelect>
 
         <label for="role">Role</label>
-        <BaseInput id="role" v-model="playerRole" />
+        <BaseSelect id="role" v-model="playerRole">
+          <option value="" disabled>Choose a role</option>
+          <option value="Codemaster">Codemaster</option>
+          <option value="Agent">Agent</option>
+        </BaseSelect>
 
         <button type="submit">Send Player Data</button>
       </form>

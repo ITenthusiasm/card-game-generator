@@ -109,6 +109,7 @@
 
 - [Using v-model on components](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components)
 - [Custom events with components (example includes v-model)](https://vuejs.org/v2/guide/components-custom-events.html)
+- Apparently, `select` elements and their corresponding `option` elements are very complex and difficult to style. For now, we're forgoing complex styles to proceed with development.
 
 ### Web Sockets and Server-Sent Events
 
