@@ -19,16 +19,6 @@
     </form>
 
     <template v-if="!gameInactive">
-      <form @submit.prevent="sendCode">
-        <label for="code-word">Code</label>
-        <BaseInput id="code-word" v-model="word" />
-
-        <label for="code-number">Number</label>
-        <BaseInput id="code-number" v-model="number" />
-
-        <button type="submit">SEND CODE</button>
-      </form>
-
       <div align="center">
         <div class="cards-box">
           <CodenamesCard
@@ -38,6 +28,16 @@
           />
         </div>
       </div>
+
+      <form @submit.prevent="sendCode">
+        <label for="code-word">Code</label>
+        <BaseInput id="code-word" v-model="word" />
+
+        <label for="code-number">Number</label>
+        <BaseInput id="code-number" v-model="number" />
+
+        <button type="submit">SEND CODE</button>
+      </form>
     </template>
   </div>
 </template>
