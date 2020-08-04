@@ -1,23 +1,44 @@
 <template>
   <div>
-    <form @submit.prevent="sendCode">
-      <label for="code-word">Code</label>
-      <BaseInput id="code-word" v-model="word" />
+    <form v-if="gameInactive" @submit.prevent="updatePlayer">
+      <label for="team">Team</label>
+      <BaseSelect id="team" v-model="playerTeam">
+        <option value="" disabled>Select a team</option>
+        <option value="Red">Red</option>
+        <option value="Blue">Blue</option>
+      </BaseSelect>
 
-      <label for="code-number">Number</label>
-      <BaseInput id="code-number" v-model="number" />
+      <label for="role">Role</label>
+      <BaseSelect id="role" v-model="playerRole">
+        <option value="" disabled>Choose a role</option>
+        <option value="Codemaster">Codemaster</option>
+        <option value="Agent">Agent</option>
+      </BaseSelect>
 
-      <button type="submit">SEND CODE</button>
+      <button type="submit">Send Player Data</button>
     </form>
-    <div align="center">
-      <div class="card-box">
-        <CodenamesCard
-          v-for="card in gameState.cards"
-          :key="card.value"
-          :card="card"
-        />
+
+    <template v-if="!gameInactive">
+      <form @submit.prevent="sendCode">
+        <label for="code-word">Code</label>
+        <BaseInput id="code-word" v-model="word" />
+
+        <label for="code-number">Number</label>
+        <BaseInput id="code-number" v-model="number" />
+
+        <button type="submit">SEND CODE</button>
+      </form>
+
+      <div align="center">
+        <div class="cards-box">
+          <CodenamesCard
+            v-for="card in gameState.cards"
+            :key="card.value"
+            :card="card"
+          />
+        </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -31,12 +52,24 @@ export default Vue.extend({
   components: { CodenamesCard },
   data() {
     return {
+      playerTeam: "",
+      playerRole: "",
       word: "",
       number: "",
     };
   },
-  computed: mapState(["gameState"]),
+  computed: {
+    ...mapState(["gameState"]),
+    gameInactive(): boolean {
+      return !this.gameState.status || this.gameState.status === "Inactive";
+    },
+  },
   methods: {
+    updatePlayer(): void {
+      const playerInfo = { team: this.playerTeam, role: this.playerRole };
+
+      this.$store.dispatch("updatePlayer", playerInfo);
+    },
     sendCode(): void {
       const number = Number(this.number);
 
@@ -55,7 +88,7 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.card-box {
+.cards-box {
   width: 700px;
   height: 600px;
 
@@ -64,5 +97,9 @@ export default Vue.extend({
   grid-template-columns: repeat(5, 1fr);
   justify-self: center;
   align-items: center;
+}
+
+form {
+  text-align: center;
 }
 </style>
