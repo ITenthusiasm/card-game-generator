@@ -15,7 +15,7 @@
         <option value="Agent">Agent</option>
       </BaseSelect>
 
-      <button type="submit">Send Player Data</button>
+      <BaseButton type="submit">Send Player Data</BaseButton>
     </form>
 
     <template v-if="!gameInactive">
@@ -36,7 +36,7 @@
         <label for="code-number">Number</label>
         <BaseInput id="code-number" v-model="number" />
 
-        <button type="submit">SEND CODE</button>
+        <BaseButton type="submit">Send Code</BaseButton>
       </form>
     </template>
   </div>
