@@ -37,5 +37,10 @@ export default Vue.extend({
 
 .button:hover {
   cursor: pointer;
+  background-color: #ed0000;
+}
+
+.button:active {
+  box-shadow: inset 0px 0px 10px #aa0000;
 }
 </style>
