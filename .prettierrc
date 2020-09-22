@@ -2,8 +2,8 @@
   "arrowParens": "avoid",
   "overrides": [
     {
-      "files": "server/games/Codenames.ts",
-      "options": { "printWidth": 90 }
+      "files": ["server/games/Codenames.ts", "*Router.test.ts"],
+      "options": { "printWidth": 100 }
     }
   ]
 }
