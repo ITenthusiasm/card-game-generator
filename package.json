@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node server/models/Deck --extensions .ts",
-    "serve": "babel-node server --extensions .ts",
+    "serve": "babel-node -r dotenv/config server --extensions .ts",
     "test": "jest --watch",
     "test:all": "jest --watchAll",
     "test:coverage": "jest --coverage",
@@ -39,6 +39,7 @@
     "@typescript-eslint/parser": "^2.34.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.6.0",
+    "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
