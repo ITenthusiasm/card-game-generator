@@ -70,7 +70,10 @@
     },
     {
       "files": ["server/routes/clientRouter.ts"],
-      "rules": { "import/newline-after-import": "off" }
+      "rules": {
+        "import/newline-after-import": "off",
+        "@typescript-eslint/no-var-requires": "off"
+      }
     },
     {
       "files": ["src/main.ts"],
