@@ -40,10 +40,6 @@ class Deck {
     });
   }
 
-  get type(): DeckTypes {
-    return this.#type;
-  }
-
   get cards(): Card[] {
     return this.#cards;
   }

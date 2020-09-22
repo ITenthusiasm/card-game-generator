@@ -6,7 +6,9 @@
   "scripts": {
     "start": "babel-node server/models/Deck --extensions .ts",
     "serve": "babel-node server --extensions .ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watch",
+    "test:all": "jest --watchAll",
+    "test:coverage": "jest --coverage",
     "try:codenames": "babel-node server/games/Codenames.ts --extensions .ts",
     "lint": "eslint **/*.{ts,vue}"
   },
@@ -47,6 +49,8 @@
     "eslint-plugin-vue": "^6.2.2",
     "html-webpack-plugin": "^4.5.0",
     "jest": "^26.4.2",
+    "jest-watch-select-projects": "^2.0.0",
+    "jest-watch-typeahead": "^0.6.1",
     "open": "^7.2.1",
     "prettier": "^2.1.2",
     "ts-loader": "^8.0.4",
