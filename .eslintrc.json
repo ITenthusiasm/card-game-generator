@@ -76,6 +76,10 @@
       }
     },
     {
+      "files": ["server/games/**/*"],
+      "rules": { "no-param-reassign": "off" }
+    },
+    {
       "files": ["src/main.ts"],
       "rules": { "@typescript-eslint/explicit-function-return-type": "off" }
     },
