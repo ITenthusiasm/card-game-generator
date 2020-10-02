@@ -39,7 +39,7 @@ abstract class Game {
   abstract handleAction(player: Player, action: Action, item: object): object;
 
   /** Ends the game. */
-  abstract end(): void;
+  abstract end(): object;
 
   /** Resets the game, creating a new deck and clearing any relevant data. */
   abstract reset(): object;

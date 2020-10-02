@@ -23,7 +23,7 @@ interface CodenamesState {
   codes: { [RED]: Code[]; [BLUE]: Code[] };
   guesses: number;
   winningTeam: typeof RED | typeof BLUE;
-  error: string;
+  error?: string;
 }
 
 /** Class representing a Codenames game */
@@ -89,6 +89,7 @@ class Codenames extends Game {
     this._state.status = GameStatus.ACTIVE;
 
     console.log("Game started!");
+    delete this._state.error;
     return this._state;
   }
 
@@ -105,26 +106,40 @@ class Codenames extends Game {
 
   handleAction(player: Player, action: Action, item: Card | Code): CodenamesState {
     if (this._state.status !== GameStatus.ACTIVE) {
-      console.error("Error: Game is not active.");
+      const errorMessage = "Error: Game is not active.";
+      console.error(errorMessage);
+      this._state.error = errorMessage;
+
       return this._state;
     }
 
     if (!player.active || !player.actions.includes(action)) {
       // Maybe needs a warning message... Or maybe UI can do that.
-      console.error(`Illegal action from player ${player.name} (${player.id}) ignored.`);
+      const errorMessage = `Illegal action from player ${player.name} (${player.id}) ignored.`;
+      console.error(errorMessage);
+      this._state.error = errorMessage;
+
       return this._state;
     }
 
     switch (action) {
       case Actions.Codenames.GIVE_CODE: {
         const code = item as Code;
+        const codeString = JSON.stringify(code);
 
         // Validate code
         if (!Number.isInteger(code.number) || code.number < 0) {
-          console.error("Invalide code: ", code, ". Number must be a positive integer.");
+          const errorMessage = `Invalid code: ${codeString}. Number must be a positive integer.`;
+          console.error(errorMessage);
+          this._state.error = errorMessage;
+
           return this._state;
-        } else if (this._state.cards.some(c => c.value === code.word)) {
-          console.error("Invalid code: ", code, ". Code cannot be an existing card.");
+        }
+        if (this._state.cards.some(c => c.value === code.word)) {
+          const errorMessage = `Invalid code: ${codeString}. Code cannot be an existing card.`;
+          console.error(errorMessage);
+          this._state.error = errorMessage;
+
           return this._state;
         }
 
@@ -135,11 +150,30 @@ class Codenames extends Game {
         this._players[this.#playerIndex].actions = [Actions.Codenames.REVEAL];
 
         console.log(`Player ${player.name} (${player.id}) gave code: `, code);
+        delete this._state.error;
         return this._state;
       }
       case Actions.Codenames.REVEAL: {
         const card = item as Card;
+        const cardString = JSON.stringify(card);
         const gameCard = this._state.cards.find(c => c.value === card.value);
+
+        // Validate Card
+        if (!gameCard) {
+          const errorMessage = `Invalid card: ${cardString}. Card not in game.`;
+          console.error(errorMessage);
+          this._state.error = errorMessage;
+
+          return this._state;
+        }
+        if (gameCard.revealed) {
+          const errorMessage = `Card ${cardString} was already revealed!`;
+          console.error(errorMessage);
+          this._state.error = errorMessage;
+
+          return this._state;
+        }
+
         gameCard.revealed = true;
 
         if (player.team === gameCard.type) {
@@ -167,10 +201,14 @@ class Codenames extends Game {
           this.setNextPlayer();
         }
 
+        delete this._state.error;
         return this._state;
       }
       default: {
-        console.error(`Action ${action} not supported.`);
+        const errorMessage = `Action ${action} not supported.`;
+        console.error(errorMessage);
+        this._state.error = errorMessage;
+
         return this._state;
       }
     }
@@ -219,9 +257,20 @@ class Codenames extends Game {
     );
   }
 
-  end(): void {
+  end(): CodenamesState {
+    if (this._state.status === GameStatus.COMPLETED) {
+      const errorMessage = "The game is already over.";
+      console.error(errorMessage);
+      this._state.error = errorMessage;
+
+      return this._state;
+    }
+
     this._state.status = GameStatus.COMPLETED;
     console.log("Game ended!");
+
+    delete this._state.error;
+    return this._state;
   }
 
   reset(): CodenamesState {
@@ -240,6 +289,7 @@ class Codenames extends Game {
       p.team = null;
       p.role = null;
       p.actions = null;
+      p.active = false;
     });
 
     console.log("Game was reset!");
