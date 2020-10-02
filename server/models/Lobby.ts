@@ -18,14 +18,17 @@ class Lobby {
   constructor(players?: Player[]) {
     this.#games = Object.values(Games).map(g => g.name);
     this.#players = players || [];
+    this.#host = this.#players[0]?.id;
   }
 
-  selectGame(game: string): void {
-    const chosenGame = this.#games.find(g => g === game);
-    if (chosenGame) this.#game = new Games[chosenGame](this.#players);
+  /** Instantiates a game for the lobby based on the game name. */
+  selectGame(gameName: string): void {
+    const chosenGame = this.#games.find(g => g === gameName);
+    if (chosenGame && !(this.#game instanceof Games[chosenGame]))
+      this.#game = new Games[chosenGame](this.#players);
   }
 
-  /** Add a new player to the lobby */
+  /** Adds a new player to the lobby. Updates the host if necessary. */
   addNewPlayer(name: string): Player {
     const player = new Player({ name });
     this.#players.push(player);
@@ -34,13 +37,14 @@ class Lobby {
     return player;
   }
 
-  /** Add a player back into the lobby */
+  /** Adds a player back into the lobby. */
   addPlayer(player: Player): void {
+    if (!player.id || !player.name) return;
+
     this.#players.push(Object.assign(player));
-    if (!this.#host) this.#host = player.id;
   }
 
-  /** Remove a player from the lobby. Updates the host of necessary. */
+  /** Removes a player from the lobby. Updates the host if necessary. */
   removePlayer(playerId: string): void {
     const playerIndex = this.#players.findIndex(p => p.id === playerId);
     this.#players.splice(playerIndex, 1);
