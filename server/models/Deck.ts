@@ -8,7 +8,7 @@ class Deck {
   }
 
   get cards(): Card[] {
-    return this.#cards;
+    return this.#cards.slice();
   }
 
   get size(): number {
