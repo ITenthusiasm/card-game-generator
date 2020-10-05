@@ -1,4 +1,10 @@
-// Uses algorithm L for Reservoir Algorithm
+/** Obtains a random sample from an array. Function uses
+ * algorithm L for the Resevoir Algorithm.
+ * @param population - Array from which to pull the sample
+ * @param number - The number of items to sample from the array
+ * @param modify - Indicates whether or not the original array should be modified
+ * @returns The sample obtained from the population
+ */
 function randomSample<T>(population: T[], size: number, modify = false): T[] {
   // Initialize sample
   const sample = population.slice(0, size);
