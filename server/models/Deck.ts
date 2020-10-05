@@ -1,43 +1,10 @@
-import { DeckTypes } from "./enums";
 import { Card } from ".";
-import type { DeckManifest } from "./DeckManifests";
-import {
-  ClassicManifest,
-  UnoManifest,
-  createCodenamesManifest,
-} from "./DeckManifests";
 
 class Deck {
-  #type: DeckTypes;
   #cards: Card[];
-  #manifest: DeckManifest;
 
-  constructor(type: DeckTypes) {
-    this.#type = type;
-    this.#cards = [];
-
-    // Initialize Deck based on manifest.
-    switch (this.#type) {
-      case DeckTypes.CLASSIC:
-        this.#manifest = ClassicManifest;
-        break;
-      case DeckTypes.UNO:
-        this.#manifest = UnoManifest;
-        break;
-      case DeckTypes.CODENAMES:
-        this.#manifest = createCodenamesManifest();
-        break;
-      default:
-        throw new Error(`Unsupported Deck Type: ${type}`);
-    }
-
-    this.initializeDeck();
-  }
-
-  private initializeDeck(): void {
-    this.#manifest.forEach((values, cardType) => {
-      values.forEach(v => this.#cards.push(new Card(cardType, v)));
-    });
+  constructor(cards: Card[]) {
+    this.#cards = cards;
   }
 
   get cards(): Card[] {

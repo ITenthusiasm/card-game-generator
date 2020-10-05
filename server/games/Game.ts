@@ -1,5 +1,5 @@
 import { Deck, Player } from "../models";
-import { DeckTypes, GameStatus } from "../models/enums";
+import { GameStatus } from "../models/enums";
 import { Action } from "../models/enums/types";
 
 /** Class representing a card game. */
@@ -15,12 +15,10 @@ abstract class Game {
 
   /**
    * Create a card game.
-   * @param deckType - The type of deck for the game.
    * @param players - The players in the game.
    */
-  constructor(deckType: DeckTypes, players: Player[]) {
+  constructor(players: Player[]) {
     this._players = players;
-    this._deck = new Deck(deckType);
   }
 
   /**

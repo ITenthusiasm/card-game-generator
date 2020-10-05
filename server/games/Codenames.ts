@@ -1,7 +1,8 @@
 import Game from "./Game";
 import { Player, Deck, Card } from "../models";
-import { DeckTypes, GameStatus, Roles, Actions, CardTypes } from "../models/enums";
-import { Action } from "../models/enums/types";
+import { GameStatus, Roles, Actions, CardTypes, CardValues } from "../models/enums";
+import { Action, CardValue } from "../models/enums/types";
+import { randomSample } from "../utils/algorithms";
 
 // Destructure card type colors for common usage throughout the file.
 // This is more justifiable since everything is dictated by card
@@ -38,7 +39,8 @@ class Codenames extends Game {
    * @param players - The players in the game
    */
   constructor(players: Player[]) {
-    super(DeckTypes.CODENAMES, players);
+    super(players);
+    this.buildNewDeck();
     this._state = { status: GameStatus.INACTIVE } as CodenamesState;
   }
 
@@ -282,7 +284,7 @@ class Codenames extends Game {
       return this._state;
     }
 
-    this._deck = new Deck(DeckTypes.CODENAMES);
+    this.buildNewDeck();
     this._state = { status: GameStatus.INACTIVE } as CodenamesState;
 
     this._players.forEach(p => {
@@ -295,6 +297,30 @@ class Codenames extends Game {
     console.log("Game was reset!");
 
     return this._state;
+  }
+
+  private buildNewDeck(): void {
+    const gameCards: Card[] = [];
+    const cardsMap = new Map<CardTypes.Codenames, CardValue[]>();
+
+    // Ranodmly extract 25 UNIQUE word array (card values) from a larger collection of options
+    const codenameValues = randomSample(CardValues.Codenames, 25);
+
+    // Randomly determine whether blue or red is larger
+    const moreRed = Math.random() < 0.5;
+    const redAmount = moreRed ? 8 : 7;
+    const blueAmount = moreRed ? 7 : 8;
+
+    cardsMap.set(CardTypes.Codenames.RED, randomSample(codenameValues, redAmount, true));
+    cardsMap.set(CardTypes.Codenames.BLUE, randomSample(codenameValues, blueAmount, true));
+    cardsMap.set(CardTypes.Codenames.BLACK, randomSample(codenameValues, 1, true));
+    cardsMap.set(CardTypes.Codenames.BROWN, [...codenameValues]);
+
+    cardsMap.forEach((values, cardType) => {
+      values.forEach(v => gameCards.push(new Card(cardType, v)));
+    });
+
+    this._deck = new Deck(gameCards);
   }
 
   /** The teams supported in the game */

@@ -1,31 +1,20 @@
-import { Deck } from "..";
-import { DeckTypes, CardTypes } from "../enums";
+import { Card, Deck } from "..";
+import { buildCard } from "../../../test-utils/mock-data/mockBuilders";
 
 describe("Deck", () => {
-  test("Constructor rejects invalid deck types", () => {
-    expect(
-      () => new Deck("InvalidType" as any)
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Unsupported Deck Type: InvalidType"`
-    );
+  let testCards: Card[];
+
+  beforeEach(() => {
+    testCards = [...Array(20)].map(buildCard);
   });
 
-  test("Constructor creates a deck with the specified card type", () => {
-    const classicCards = new Deck(DeckTypes.CLASSIC).cards;
-    const classicCardTypes = Object.values(CardTypes.Classic);
-    classicCards.forEach(c => expect(classicCardTypes).toContain(c.type));
-
-    const unoCards = new Deck(DeckTypes.UNO).cards;
-    const unoCardTypes = Object.values(CardTypes.Uno);
-    unoCards.forEach(c => expect(unoCardTypes).toContain(c.type));
-
-    const codenamesCards = new Deck(DeckTypes.CODENAMES).cards;
-    const codenamesCardtypes = Object.values(CardTypes.Codenames);
-    codenamesCards.forEach(c => expect(codenamesCardtypes).toContain(c.type));
+  test("Constructor creates a deck with the specified cards", () => {
+    const deck = new Deck(testCards);
+    expect(deck.cards).toStrictEqual(testCards);
   });
 
   test("Draw removes the number of specified cards from the top of the deck", () => {
-    const deck = new Deck(DeckTypes.CLASSIC);
+    const deck = new Deck(testCards);
     const originalCards = deck.cards.slice();
 
     const drawnCard = deck.draw(); // defaults to 1
@@ -38,7 +27,7 @@ describe("Deck", () => {
   });
 
   test("Shuffle randomly reorganizes the deck", () => {
-    const deck = new Deck(DeckTypes.CLASSIC);
+    const deck = new Deck(testCards);
     const originalCards = deck.cards.slice();
 
     deck.shuffle();
