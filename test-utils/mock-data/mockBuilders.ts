@@ -2,12 +2,7 @@ import faker from "faker";
 import { Card, Player } from "../../server/models";
 import { CardTypes, CardValues } from "../../server/models/enums";
 import { CardType, CardValue } from "../../server/models/enums/types";
-
-function getEnumValues(enumeration: object): (string | number)[] {
-  return Object.keys(enumeration)
-    .filter(key => isNaN(Number(key)))
-    .map(k => enumeration[k]);
-}
+import { getEnumValues } from "../../server/utils/mappers";
 
 export function buildPlayer(overrides: Partial<Player> = {}): Player {
   return {

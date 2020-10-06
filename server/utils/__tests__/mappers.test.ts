@@ -1,5 +1,5 @@
 import { mocked } from "ts-jest/utils";
-import { convertToJSON } from "../mappers";
+import { convertToJSON, getEnumValues } from "../mappers";
 
 jest.spyOn(console, "error").mockImplementation();
 const mockConsoleError = mocked(console.error, true);
@@ -50,5 +50,19 @@ describe("Mappers", () => {
       `"Error calling property testError"`
     );
     expect(mockConsoleError.mock.calls[0][1]).toBeInstanceOf(Error);
+  });
+
+  test("getEnumValues returns only the values from a TypeScript enum and ignores all keys", () => {
+    enum TestEnum {
+      One = 1,
+      Two = 2,
+      Three = "Three",
+    }
+
+    const enumKeysAndValues = Object.keys(TestEnum);
+    const enumValues = getEnumValues(TestEnum);
+
+    expect(enumValues).toStrictEqual([1, 2, "Three"]);
+    expect(enumValues).not.toStrictEqual(enumKeysAndValues);
   });
 });
