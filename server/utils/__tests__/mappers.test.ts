@@ -9,6 +9,7 @@ describe("Mappers", () => {
     a: string;
     b: string;
     #c = "c";
+    _d = "d";
 
     constructor() {
       this.a = "a";
@@ -50,6 +51,13 @@ describe("Mappers", () => {
       `"Error calling property testError"`
     );
     expect(mockConsoleError.mock.calls[0][1]).toBeInstanceOf(Error);
+  });
+
+  test("convertToJSON ignores properties starting with an underscore (for pseudo protected/private)", () => {
+    const instance = new TestClass();
+
+    const jsonObject = JSON.parse(JSON.stringify(convertToJSON(instance)));
+    expect(jsonObject.d).toBeUndefined();
   });
 
   test("getEnumValues returns only the values from a TypeScript enum and ignores all keys", () => {

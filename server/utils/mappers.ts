@@ -6,7 +6,7 @@ export function convertToJSON(obj: Record<string, any>): Record<string, any> {
   Object.entries(Object.getOwnPropertyDescriptors(proto))
     .filter(([, descriptor]) => typeof descriptor.get === "function")
     .forEach(([key, descriptor]) => {
-      // private properties (start with #) are automatically skipped
+      // true JS private properties (start with #) are automatically skipped
       if (descriptor && key[0] !== "_") {
         try {
           jsonObj[key] = obj[key];
