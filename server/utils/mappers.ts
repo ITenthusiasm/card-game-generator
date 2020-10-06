@@ -1,12 +1,18 @@
 /** Converts an object to its JSON representation, including getters. */
 export function convertToJSON(obj: Record<string, any>): Record<string, any> {
   const jsonObj = { ...obj };
+
+  // Remove pseudo "protected"/"private" properties from object.
+  Object.entries(jsonObj).forEach(([key]) => {
+    if (key[0] === "_") delete jsonObj[key];
+  });
+
   const proto = Object.getPrototypeOf(obj);
 
+  // Assign any public getters to object. Ignore pseudo "protected"/"private" getters.
   Object.entries(Object.getOwnPropertyDescriptors(proto))
     .filter(([, descriptor]) => typeof descriptor.get === "function")
     .forEach(([key, descriptor]) => {
-      // true JS private properties (start with #) are automatically skipped
       if (descriptor && key[0] !== "_") {
         try {
           jsonObj[key] = obj[key];

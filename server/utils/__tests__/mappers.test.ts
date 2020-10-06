@@ -7,22 +7,26 @@ const mockConsoleError = mocked(console.error, true);
 describe("Mappers", () => {
   class TestClass {
     a: string;
-    b: string;
-    #c = "c";
-    _d = "d";
+    #b = "b";
+    protected _c = "c"; // JSON-Excluded
 
     constructor() {
       this.a = "a";
-      this.b = "b";
     }
 
-    get c() {
-      return this.#c;
+    get b() {
+      return this.#b;
     }
 
+    // JSON-Excluded
+    private get _d() {
+      return this.#b;
+    }
+
+    // JSON-Excluded
     get testError() {
       throw new Error();
-      return this.#c;
+      return this.#b;
     }
   }
 
@@ -37,9 +41,8 @@ describe("Mappers", () => {
     const jsonObject = JSON.parse(JSON.stringify(convertToJSON(instance)));
 
     expect(jsonObject.a).toBe(incompleteObject.a);
-    expect(jsonObject.b).toBe(incompleteObject.b);
-    expect(incompleteObject.c).toBeUndefined();
-    expect(jsonObject.c).toBe("c");
+    expect(incompleteObject.b).toBeUndefined();
+    expect(jsonObject.b).toBe("b");
   });
 
   test("convertToJSON skips properties that cause errors, logging any messages", () => {
@@ -53,11 +56,12 @@ describe("Mappers", () => {
     expect(mockConsoleError.mock.calls[0][1]).toBeInstanceOf(Error);
   });
 
-  test("convertToJSON ignores properties starting with an underscore (for pseudo protected/private)", () => {
+  test("convertToJSON ignores properties starting with an underscore (for pseudo 'protected'/'private' properties)", () => {
     const instance = new TestClass();
 
     const jsonObject = JSON.parse(JSON.stringify(convertToJSON(instance)));
-    expect(jsonObject.d).toBeUndefined();
+    expect(jsonObject._c).toBeUndefined();
+    expect(jsonObject._d).toBeUndefined();
   });
 
   test("getEnumValues returns only the values from a TypeScript enum and ignores all keys", () => {
