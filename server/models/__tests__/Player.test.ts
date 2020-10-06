@@ -1,11 +1,10 @@
 import { Player } from "..";
+import { dedupe } from "../../utils/arrayUtils";
 
 describe("Player", () => {
   test("All players are instantiated with unique id's", () => {
     const playerList = [...Array(20)].map(() => new Player({ name: "name" }));
-    const uniqueIds = playerList
-      .map(p => p.id)
-      .filter((v, i, a) => a.indexOf(v) === i);
+    const uniqueIds = playerList.map(p => p.id).filter(dedupe);
 
     expect(uniqueIds.length).toBe(playerList.length);
   });

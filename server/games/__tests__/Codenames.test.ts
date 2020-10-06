@@ -1,5 +1,6 @@
 import { Codenames } from "..";
 import { Actions, CardTypes, GameStatus, Roles } from "../../models/enums";
+import { dedupe } from "../../utils/arrayUtils";
 import { buildPlayer } from "../../../test-utils/mock-data/mockBuilders";
 
 jest.spyOn(console, "error").mockImplementation();
@@ -114,11 +115,11 @@ describe("Codenames", () => {
     expect(gameState.cards.length).toBe(25);
     gameState.cards.forEach(c => expect(c.revealed).toBeFalsy());
 
-    const cardTypes = gameState.cards.map(c => c.type).filter((v, i, a) => a.indexOf(v) === i);
+    const cardTypes = gameState.cards.map(c => c.type).filter(dedupe);
     expect(cardTypes.sort()).toEqual([BLACK, BLUE, BROWN, RED]);
 
     gameState.cards.forEach(c => expect(c.value).toMatch(/^[a-z]+$/));
-    const cardValues = gameState.cards.map(c => c.value).filter((v, i, a) => a.indexOf(v) === i);
+    const cardValues = gameState.cards.map(c => c.value).filter(dedupe);
     expect(cardValues.length).toBe(gameState.cards.length);
 
     const majorColor = activePlayer.team;
