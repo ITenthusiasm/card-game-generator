@@ -1,4 +1,5 @@
 import { Action, Role } from "./enums/types";
+import { convertToJSON } from "../utils/mappers";
 
 interface PlayerInfo {
   name: string;
@@ -30,24 +31,8 @@ class Player {
     return this.#name;
   }
 
-  toJSON(): object {
-    const jsonObj = { ...this };
-    const proto = Object.getPrototypeOf(this);
-
-    Object.entries(Object.getOwnPropertyDescriptors(proto))
-      .filter(([, descriptor]) => typeof descriptor.get === "function")
-      .forEach(([key, descriptor]) => {
-        // private properties (start with #) are automatically skipped
-        if (descriptor && key[0] !== "_") {
-          try {
-            jsonObj[key] = this[key];
-          } catch (error) {
-            console.error(`Error calling setting property ${key}`, error);
-          }
-        }
-      });
-
-    return jsonObj;
+  toJSON(): Record<string, any> {
+    return convertToJSON(this);
   }
 }
 

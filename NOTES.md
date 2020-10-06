@@ -105,6 +105,8 @@
 
 - [MDN `toJSON` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior).
 
+  - It seems that raw objects with getters don't have a problem with JSON serialization. However, instances of classes will often lose any getter (and setter) info during JSON serialization.
+
 - [Animating box shadow](https://tobiasahlin.com/blog/how-to-animate-box-shadow/).
 
 - [Using v-model on components](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components)
