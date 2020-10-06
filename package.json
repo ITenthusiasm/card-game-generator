@@ -4,8 +4,7 @@
   "description": "A fun project to simulate various card game experiences.",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node server/models/Deck --extensions .ts",
-    "serve": "babel-node -r dotenv/config server --extensions .ts",
+    "start": "babel-node -r dotenv/config server --extensions .ts",
     "test": "jest --watch",
     "test:all": "jest --watchAll",
     "test:coverage": "jest --coverage",
