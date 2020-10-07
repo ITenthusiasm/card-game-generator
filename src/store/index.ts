@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    lobbyId: "",
     player: null as any,
     players: {} as object[],
     games: [] as string[],
@@ -13,6 +14,15 @@ const store = new Vuex.Store({
     gameState: {},
   },
   mutations: {
+    SET_LOBBY(state, lobbyId: string) {
+      if (!lobbyId) {
+        console.error("Could not find lobby");
+        return;
+      }
+
+      state.lobbyId = lobbyId;
+      localStorage.setItem("lobbyId", JSON.stringify(lobbyId));
+    },
     SET_PLAYER(state, player): void {
       state.player = player;
       localStorage.setItem("player", JSON.stringify(player));
@@ -34,10 +44,11 @@ const store = new Vuex.Store({
     },
   },
   actions: {
-    addNewPlayer(context, playerName: string): void {
-      if (context.state.player) return;
-
-      webSocket.send(`ADD_NEW_PLAYER|${JSON.stringify(playerName)}`);
+    openLobby(_, playerName: string): void {
+      webSocket.send(`OPEN_LOBBY|${JSON.stringify(playerName)}`);
+    },
+    joinLobby(_, playerInfo): void {
+      webSocket.send(`JOIN_LOBBY|${JSON.stringify(playerInfo)}`);
     },
     updatePlayer(context, playerInfo): void {
       const player = Object.assign(context.state.player, playerInfo);
@@ -72,6 +83,10 @@ webSocket.addEventListener("message", function (message) {
   const data = JSON.parse(dataString);
 
   switch (messageType) {
+    case "SET_LOBBY": {
+      store.commit("SET_LOBBY", data);
+      break;
+    }
     case "SET_PLAYER": {
       store.commit("SET_PLAYER", data);
       break;

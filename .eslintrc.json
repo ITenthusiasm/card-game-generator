@@ -37,6 +37,7 @@
   "rules": {
     "lines-between-class-members": "off",
     "no-underscore-dangle": "off",
+    "no-param-reassign": ["error", { "props": false }],
     "no-plusplus": "off",
     "no-restricted-globals": "off",
     "func-names": "off",
@@ -76,16 +77,8 @@
       }
     },
     {
-      "files": ["server/games/**/*"],
-      "rules": { "no-param-reassign": "off" }
-    },
-    {
       "files": ["src/main.ts"],
       "rules": { "@typescript-eslint/explicit-function-return-type": "off" }
-    },
-    {
-      "files": ["src/store/*"],
-      "rules": { "no-param-reassign": "off" }
     },
     {
       "files": ["test-utils/**/*", "server/**/*.test.ts"],

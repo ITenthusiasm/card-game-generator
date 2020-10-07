@@ -1,7 +1,14 @@
 <template>
-  <form align="center" @submit.prevent="sendPlayerInfo">
+  <form align="center">
     <label class="input-label" for="name">Player Name</label>
     <BaseInput id="name" v-model="playerName" />
+
+    <label class="input-label" for="lobby">Lobby Passcode</label>
+    <BaseInput id="lobby" v-model="lobbyId" />
+
+    <br />
+    <BaseButton type="button" @click="openLobby">Create Lobby</BaseButton>
+    <BaseButton type="button" @click="joinLobby">Join Lobby</BaseButton>
   </form>
 </template>
 
@@ -13,16 +20,23 @@ export default Vue.extend({
   data() {
     return {
       playerName: "",
+      lobbyId: "",
     };
   },
   methods: {
-    sendPlayerInfo(): void {
+    openLobby(): void {
       if (this.playerName.trim().length) {
-        this.$store.dispatch("addNewPlayer", this.playerName);
+        this.$store.dispatch("openLobby", this.playerName);
         this.$router.push("/lobby");
       }
+    },
+    joinLobby(): void {
+      const playerInfo = { playerName: this.playerName, lobbyId: this.lobbyId };
 
-      this.playerName = "";
+      if (this.playerName.trim().length) {
+        this.$store.dispatch("joinLobby", playerInfo);
+        this.$router.push("/lobby");
+      }
     },
   },
 });
