@@ -140,3 +140,4 @@
 - [Prettier overrides](https://prettier.io/docs/en/configuration.html#configuration-overrides)
 - [Using `require.context` (webpack-specific) with Typescript](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18446)
 - [Vue's "Automatic Global Registration"](https://vuejs.org/v2/guide/components-registration.html#Automatic-Global-Registration-of-Base-Components)
+- [Useful random string generation discussion](https://gist.github.com/6174/6062387)

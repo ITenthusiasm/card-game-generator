@@ -1,5 +1,6 @@
 import { Action, Role } from "./enums/types";
 import { convertToJSON } from "../utils/mappers";
+import { randomString } from "../utils/algorithms";
 
 interface PlayerInfo {
   name: string;
@@ -17,7 +18,7 @@ class Player {
   active: boolean;
 
   constructor(playerInfo: PlayerInfo) {
-    this.#id = `_${Math.random().toString(36).substring(2, 9)}`;
+    this.#id = `_${randomString()}`;
     this.#name = playerInfo.name;
     this.role = playerInfo.role;
     this.team = playerInfo.team;

@@ -1,4 +1,5 @@
-import { randomSample } from "../algorithms";
+import { randomSample, randomString } from "../algorithms";
+import { dedupe } from "../arrayUtils";
 
 // Arrays must be UNIQUE for all tests here
 describe("Algorithms", () => {
@@ -19,5 +20,16 @@ describe("Algorithms", () => {
 
     const sample = randomSample(array, 5, true);
     sample.forEach(item => expect(array).not.toContain(item));
+  });
+
+  test("randomString creates a random 9-character string", () => {
+    const array = [...Array(1000)].map(randomString);
+    const uniqueArray = array.filter(dedupe);
+
+    // All strings are of the correct format
+    array.forEach(s => expect(s).toMatch(/[0-9a-z]{9}/));
+
+    // All strings "should be unique" since they were randomly generated
+    expect(uniqueArray.length).toBe(array.length);
   });
 });
