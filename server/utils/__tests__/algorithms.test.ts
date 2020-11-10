@@ -27,7 +27,7 @@ describe("Algorithms", () => {
     const uniqueArray = array.filter(dedupe);
 
     // All strings are of the correct format
-    array.forEach(s => expect(s).toMatch(/[0-9a-z]{9}/));
+    array.forEach(s => expect(s).toMatch(/[0-9a-z]{8}/));
 
     // All strings "should be unique" since they were randomly generated
     expect(uniqueArray.length).toBe(array.length);

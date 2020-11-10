@@ -51,9 +51,9 @@ function randomSample<T>(population: T[], size: number, modify = false): T[] {
   return sample;
 }
 
-/** Generates a random 9-character string (0-9, a-z only) */
+/** Generates a random 8-character string (0-9, a-z only) */
 function randomString(): string {
-  return Math.random().toString(36).substring(2, 11);
+  return Math.random().toString(36).substring(2, 10);
 }
 
 export { randomSample, randomString };
