@@ -11,3 +11,6 @@
   - [x] If this gets done, improve the tests on the deck.
 - [ ] Improve/Test/Modularize the current server/index.ts (especially web sockets).
 - [ ] Add a way to delete lobbies when all players have left the lobby.
+- [ ] `Codenames.handleAction` needs to safely handle situations when it isn't given all the inputs. (Even consider invalid inputs?)
+- [ ] Maybe consider handling invalid message types in the WebSocket server.
+- [ ] Update Jest config to exclude the root application files (`src/main.ts` and `server/index.ts`).
