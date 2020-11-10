@@ -382,6 +382,22 @@ describe("Create WebSocket Server", () => {
     player1 = players1.find(p => p.id === player1.id);
     player2 = players1.find(p => p.id === player2.id);
   });
+
+  test("Unrecognized message types result in an error from the server", async () => {
+    const badMessageType = "FAKE_MESSAGE_TYPE";
+    const expectedActions = ["ERROR"];
+
+    client3.send(badMessageType);
+    await waitFor(() => messages3.length === 1);
+
+    const [actions3, [errorMessage]] = extractMessageData(messages3);
+
+    // Verify received message types
+    expect(actions3).toStrictEqual(expectedActions);
+
+    // Verify the error message
+    expect(errorMessage).toBe(`Unrecognized message type: ${badMessageType}`);
+  });
 });
 
 /* ------------------------------ UTILITY FUNCTIONS ------------------------------ */

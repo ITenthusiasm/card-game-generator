@@ -120,6 +120,8 @@ function createWebSocketServer(server: Server): void {
           break;
         }
         default: {
+          const errorMessage = `Unrecognized message type: ${messageType}`;
+          webSocket.send(`ERROR|${JSON.stringify(errorMessage)}`);
           break;
         }
       }
