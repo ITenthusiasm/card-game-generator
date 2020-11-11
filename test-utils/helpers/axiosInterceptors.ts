@@ -1,6 +1,6 @@
 import { AxiosResponse, AxiosError } from "axios";
 
-type testAxiosError = Error & { status?: number; data?: any };
+type TestAxiosError = Error & { status?: number; data?: any };
 
 /** Intercepts an axios response and extracts the `data` property */
 export function extractAxiosData(response: AxiosResponse): any {
@@ -14,7 +14,7 @@ export function handleAxiosError(err: AxiosError): Promise<never> {
   const { status, data } = response as AxiosResponse;
 
   // Create custom error
-  const error: testAxiosError = new Error(
+  const error: TestAxiosError = new Error(
     `Status ${status}: ${JSON.stringify(data.message)}`
   );
   error.status = status;

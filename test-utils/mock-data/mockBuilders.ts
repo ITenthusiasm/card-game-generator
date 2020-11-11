@@ -4,6 +4,10 @@ import { CardTypes, CardValues } from "../../server/models/enums";
 import { CardType, CardValue } from "../../server/models/enums/types";
 import { getEnumValues } from "../../server/utils/mappers";
 
+/**
+ * Creates a mock `Player` object.
+ * @param overrides Any properties to add or override on the object
+ */
 export function buildPlayer(overrides: Partial<Player> = {}): Player {
   return {
     id: faker.random.uuid(),
@@ -12,6 +16,11 @@ export function buildPlayer(overrides: Partial<Player> = {}): Player {
   } as Player;
 }
 
+/**
+ * Creates a mock `Card` object by randomly generating a card. The
+ * card's type and value will always be of the same "class" (Codenames, RED, "shark")
+ * but will not necessarily always make sense (Uno, WILD, 0).
+ */
 export function buildCard(): Card {
   const cardClasses = Object.keys(CardTypes);
   const cardClass = faker.random.arrayElement(cardClasses);
@@ -22,7 +31,7 @@ export function buildCard(): Card {
   if (Array.isArray(CardValues[cardClass])) {
     value = faker.random.arrayElement(CardValues[cardClass]);
   } else {
-    value = faker.random.objectElement(getEnumValues(CardValues[cardClass]));
+    value = faker.random.arrayElement(getEnumValues(CardValues[cardClass]));
   }
 
   return new Card(type, value);
