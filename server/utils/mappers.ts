@@ -25,10 +25,10 @@ export function convertToJSON(obj: Record<string, any>): Record<string, any> {
   return jsonObj;
 }
 
-type enumValue = number | string;
+type EnumValue = number | string;
 
 /** Gets the values of a TypeScript Enum */
-export function getEnumValues(en: Record<string, enumValue>): enumValue[] {
+export function getEnumValues(en: Record<string, EnumValue>): EnumValue[] {
   return Object.keys(en)
     .filter(key => isNaN(Number(key)))
     .map(k => en[k]);

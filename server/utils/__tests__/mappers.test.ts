@@ -1,18 +1,12 @@
-import { mocked } from "ts-jest/utils";
 import { convertToJSON, getEnumValues } from "../mappers";
 
-jest.spyOn(console, "error").mockImplementation();
-const mockConsoleError = mocked(console.error, true);
+const mockConsoleError = jest.spyOn(console, "error").mockImplementation();
 
 describe("Mappers", () => {
   class TestClass {
-    a: string;
+    a = "a";
     #b = "b";
     protected _c = "c"; // JSON-Excluded
-
-    constructor() {
-      this.a = "a";
-    }
 
     get b() {
       return this.#b;

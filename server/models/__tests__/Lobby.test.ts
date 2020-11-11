@@ -8,12 +8,19 @@ describe("Lobby", () => {
     expect(lobby.games).toStrictEqual(Object.values(Games).map(g => g.name));
   });
 
-  test("Lobbies instantiated with players set the existing players and make player 1 host", () => {
+  test("Lobbies instantiated with players set the existing players and make player 1 the host", () => {
     const players = [...Array(3)].map(buildPlayer);
     const lobby = new Lobby(players);
 
     lobby.players.forEach((p, i) => expect(p).toStrictEqual(players[i]));
     expect(lobby.host).toEqual(players[0].id);
+  });
+
+  test("The lobby's available games cannot be directly manipulated", () => {
+    const lobby = new Lobby();
+
+    lobby.games.splice(0, lobby.games.length);
+    expect(lobby.games).toStrictEqual(Object.values(Games).map(g => g.name));
   });
 
   test("selectGame sets a lobby's current game based on the name provided", () => {
@@ -51,9 +58,7 @@ describe("Lobby", () => {
     lobby.addNewPlayer(testName);
 
     expect(lobby.players.length).toBe(originalPlayers.length + 1);
-
-    const newPlayer = lobby.players.find(p => p.name === testName);
-    expect(newPlayer.name).toBe(testName);
+    expect(lobby.players.find(p => p.name === testName)).toBeDefined();
   });
 
   test("addNewPlayer sets the new player as the host if it's missing one", () => {
@@ -99,10 +104,17 @@ describe("Lobby", () => {
   test("removePlayer sets the host to the first player if the original host was removed", () => {
     const lobby = new Lobby([...Array(3)].map(buildPlayer));
 
-    const removedPlayer = lobby.players.find(p => p.id === lobby.host);
+    const removedHost = lobby.players.find(p => p.id === lobby.host);
 
-    lobby.removePlayer(removedPlayer.id);
-    expect(lobby.host).not.toBe(removedPlayer.id);
+    lobby.removePlayer(removedHost.id);
+    expect(lobby.host).not.toBe(removedHost.id);
     expect(lobby.host).toBe(lobby.players[0].id);
+
+    const newHost = lobby.players.find(p => p.id === lobby.host);
+    const removedNonHost = lobby.players.find(p => p.id !== lobby.host);
+
+    // Host remains unchanged if a non-host is removed.
+    lobby.removePlayer(removedNonHost.id);
+    expect(lobby.host).toBe(newHost.id);
   });
 });

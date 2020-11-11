@@ -41,7 +41,7 @@ class Lobby {
   addPlayer(player: Player): void {
     if (!player.id || !player.name) return;
 
-    this.#players.push(Object.assign(player));
+    this.#players.push(player);
   }
 
   /** Removes a player from the lobby. Updates the host if necessary. */
@@ -61,7 +61,7 @@ class Lobby {
   }
 
   get games(): string[] {
-    return this.#games;
+    return this.#games.slice();
   }
 
   get game(): Game {

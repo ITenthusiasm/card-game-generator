@@ -7,8 +7,10 @@ jest.spyOn(console, "error").mockImplementation();
 jest.spyOn(console, "log").mockImplementation();
 
 describe("Codenames", () => {
-  // Dynamic variables throughout the tests
+  // Constant variables that are initialized before all tests
   let codenames: Codenames;
+
+  // Dynamic variables used throughout the tests
   let gameState: ReturnType<typeof codenames.handleAction>;
 
   // Useful constants for the tests

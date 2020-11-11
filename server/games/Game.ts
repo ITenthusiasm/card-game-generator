@@ -23,7 +23,7 @@ abstract class Game {
 
   /**
    * Starts the game.
-   * @return {object} The initial state of the game.
+   * @returns {object} The initial state of the game.
    */
   abstract start(): object;
 
@@ -32,7 +32,7 @@ abstract class Game {
    * @param player - The player committing the action.
    * @param action - The action the player committed.
    * @param item - The item the player used to commit the action (a card, a code, etc.).
-   * @return {object} The new state resulting from the action the player committed.
+   * @returns {object} The new game state resulting from the action the player committed.
    */
   abstract handleAction(player: Player, action: Action, item: object): object;
 

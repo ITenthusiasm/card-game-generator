@@ -1,7 +1,7 @@
 import Game from "./Game";
 import { Player, Deck, Card } from "../models";
 import { GameStatus, Roles, Actions, CardTypes, CardValues } from "../models/enums";
-import { Action, CardValue } from "../models/enums/types";
+import { Action } from "../models/enums/types";
 import { randomSample } from "../utils/algorithms";
 
 // Destructure card type colors for common usage throughout the file.
@@ -63,7 +63,7 @@ class Codenames extends Game {
       return this._state;
     }
 
-    // Shuffle decke and grab cards
+    // Shuffle deck and grab cards
     this._deck.shuffle();
     this._state.cards = this._deck.draw(this._deck.size) as CodenamesCard[];
 
@@ -301,7 +301,7 @@ class Codenames extends Game {
 
   private buildNewDeck(): void {
     const gameCards: Card[] = [];
-    const cardsMap = new Map<CardTypes.Codenames, CardValue[]>();
+    const cardsMap = new Map<CardTypes.Codenames, string[]>();
 
     // Ranodmly extract 25 UNIQUE word array (card values) from a larger collection of options
     const codenameValues = randomSample(CardValues.Codenames, 25);

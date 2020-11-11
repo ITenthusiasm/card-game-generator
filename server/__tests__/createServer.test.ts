@@ -19,12 +19,12 @@ jest.mock("../routes", () => ({ clientRouter: jest.fn() }));
 jest.spyOn(console, "log").mockImplementation();
 
 describe("Create Server", () => {
-  afterEach(async () => {
+  afterEach(() => {
     jest.clearAllMocks();
     process.env.NODE_ENV = "test"; // Jest's value for NODE_ENV
   });
 
-  it("Uses webpack when inside 'development'", async () => {
+  it("Uses webpack when inside 'development' mode", async () => {
     process.env.NODE_ENV = "development";
     await createServer();
 
@@ -33,7 +33,7 @@ describe("Create Server", () => {
     expect(webpackHotMiddleware).toHaveBeenCalled();
   });
 
-  it("Does not use webpack when outside 'development'", async () => {
+  it("Does not use webpack when outside 'development' mode", async () => {
     await createServer();
 
     expect(webpack).not.toHaveBeenCalled();
