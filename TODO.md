@@ -13,4 +13,4 @@
 - [ ] Add a way to delete lobbies when all players have left the lobby.
 - [ ] `Codenames.handleAction` needs to safely handle situations when it isn't given all the inputs. (Even consider invalid inputs?)
 - [x] Maybe consider handling invalid message types in the WebSocket server.
-- [ ] Update Jest config to exclude the root application files (`src/main.ts` and `server/index.ts`).
+- [x] Update Jest config to exclude the root application files (`src/main.ts` and `server/index.ts`).

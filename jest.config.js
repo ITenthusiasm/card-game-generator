@@ -1,5 +1,10 @@
 module.exports = {
-  collectCoverageFrom: ["<rootDir>/{src,server}/**/!(*.test.ts)"],
+  collectCoverageFrom: [
+    "<rootDir>/{src,server}/**/*.{ts,vue}",
+    "!<rootDir>/**/*.test.ts",
+    "!<rootDir>/src/main.ts",
+    "!<rootDir>/server/index.ts",
+  ],
   coverageDirectory: "<rootDir>/coverage", // default
   coverageThreshold: {
     global: {
