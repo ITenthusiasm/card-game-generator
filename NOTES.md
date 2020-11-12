@@ -141,3 +141,7 @@
 - [Using `require.context` (webpack-specific) with Typescript](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18446)
 - [Vue's "Automatic Global Registration"](https://vuejs.org/v2/guide/components-registration.html#Automatic-Global-Registration-of-Base-Components)
 - [Useful random string generation discussion](https://gist.github.com/6174/6062387)
+
+### Vue Quirks
+
+- [Fixing Vue's incompatibility with the new css-loader (not officially fixed yet)](https://github.com/vuejs/vue-style-loader/issues/46#issuecomment-670624576)

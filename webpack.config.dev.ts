@@ -58,7 +58,10 @@ const config: webpack.Configuration = {
       {
         test: /.css$/,
         include: path.resolve(__dirname, "src"),
-        use: ["vue-style-loader", "css-loader"],
+        use: [
+          { loader: "vue-style-loader" },
+          { loader: "css-loader", options: { esModule: false } },
+        ],
       },
     ],
   },
