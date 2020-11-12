@@ -19,8 +19,7 @@ async function createServer(): Promise<http.Server> {
     const webpackHotMiddleware = await import("webpack-hot-middleware");
 
     const routes = ["/lobby", "/"];
-    const webpackDevOpts: any = { logLevel: "silent" };
-    app.use(routes, webpackDevMiddleware.default(compiler, webpackDevOpts));
+    app.use(routes, webpackDevMiddleware.default(compiler));
     app.use(routes, webpackHotMiddleware.default(compiler));
   }
 

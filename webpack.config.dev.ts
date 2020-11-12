@@ -16,11 +16,13 @@ const config: webpack.Configuration = {
     publicPath: "/",
     filename: "bundle.js", // served in memory in dev mode
   },
+  infrastructureLogging: {
+    level: "none",
+  },
   plugins: [
     new HtmlWebpackPlugin({ template: "public/index.html", inject: true }),
     new VueLoaderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(false), // assuming false is default ("undefined" is "falsy")
   ],
   resolve: {
     extensions: [".js", ".ts", ".vue"],

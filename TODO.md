@@ -18,3 +18,4 @@
 - [ ] Consider handling error cases in `createWebSocketServer`. Are you going to assume that all the data comes through in the correct way? Or are you going to validate every single message that comes through, returning any errors? Or are you simply going to use try/catch blocks to handle situations where people send invalid data? Whatever happens, you should consider an error handling option.
 - [ ] If `lobby.addPlayer` ever starts getting used, it needs to avoid adding duplicate players.
   - [ ] You may want to consider removing `lobby.addPlayer` altogether. It may not be fully practical or safe.
+- [ ] Investigate the webpack-dev-middleware warning that's happening right now. This is likely a Vue-related issue. (Our React app didn't have this problem.)
