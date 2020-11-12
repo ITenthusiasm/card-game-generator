@@ -41,6 +41,10 @@
     "no-plusplus": "off",
     "no-restricted-globals": "off",
     "func-names": "off",
+    "no-use-before-define": "off", // Conflicts with typescript variation
+    "@typescript-eslint/no-use-before-define": "error",
+    "no-shadow": "off", // Conflicts with typescript variation
+    "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-explicit-any": "off",
     "vue/component-tags-order": [
       "error",
@@ -84,6 +88,7 @@
       "files": ["test-utils/**/*", "server/**/*.test.ts"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off"
       }
     },

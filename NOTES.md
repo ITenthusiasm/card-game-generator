@@ -142,6 +142,10 @@
 - [Vue's "Automatic Global Registration"](https://vuejs.org/v2/guide/components-registration.html#Automatic-Global-Registration-of-Base-Components)
 - [Useful random string generation discussion](https://gist.github.com/6174/6062387)
 
+### TypeScript
+
+- [Handling situations where ESLint conflicts with TypeScript](https://github.com/typescript-eslint/typescript-eslint/issues/2540#issuecomment-692866111)
+
 ### Vue Quirks
 
 - [Fixing Vue's incompatibility with the new css-loader (not officially fixed yet)](https://github.com/vuejs/vue-style-loader/issues/46#issuecomment-670624576)
