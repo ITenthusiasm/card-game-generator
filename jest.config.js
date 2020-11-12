@@ -1,7 +1,7 @@
 module.exports = {
   collectCoverageFrom: [
     "<rootDir>/{src,server}/**/*.{ts,vue}",
-    "!<rootDir>/**/*.test.ts",
+    "!<rootDir>/{src,server}/**/*.test.ts",
     "!<rootDir>/src/main.ts",
     "!<rootDir>/server/index.ts",
   ],
@@ -14,7 +14,7 @@ module.exports = {
       lines: 90,
     },
   },
-  projects: ["test-utils/jest.server.js"],
+  projects: ["test-utils/jest.server.js", "test-utils/jest.client.js"],
   watchPlugins: [
     "jest-watch-select-projects",
     "jest-watch-typeahead/filename",

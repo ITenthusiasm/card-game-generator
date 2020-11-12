@@ -150,3 +150,8 @@
 ### Vue Quirks
 
 - [Fixing Vue's incompatibility with the new css-loader (not officially fixed yet)](https://github.com/vuejs/vue-style-loader/issues/46#issuecomment-670624576)
+- [Setting up Vue for _testing with Jest_](https://vue-test-utils.vuejs.org/installation/#using-vue-test-utils-with-jest-recommended)
+  - [Configuring Jest for file transforms](https://jestjs.io/docs/en/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object)
+    - **Note**: It seems that installing `babel-jest` is unnecessary. Jest automatically knows what `babel-jest` means even if you haven't personally installed it locally. (Perhaps it's a part of Jest's dependencies?)
+  - [Configuring Jest's expected module extensions](https://jestjs.io/docs/en/configuration#modulefileextensions-arraystring)
+  - Note that the complexities with `vue-jest` are the reason we had to install the extra weird `"babel-core": "^7.0.0-bridge.0"` package. Whenever `vue-jest` properly gets updated/fixed, you should remove this extra dependency as soon as possible.
