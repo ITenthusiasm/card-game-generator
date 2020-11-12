@@ -2,7 +2,7 @@
   "arrowParens": "avoid",
   "overrides": [
     {
-      "files": ["server/games/Codenames.ts", "server/**/*.test.ts"],
+      "files": ["server/games/**.ts", "server/**/*.test.ts"],
       "options": { "printWidth": 100 }
     }
   ]

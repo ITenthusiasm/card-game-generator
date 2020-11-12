@@ -145,6 +145,7 @@
 ### TypeScript
 
 - [Handling situations where ESLint conflicts with TypeScript](https://github.com/typescript-eslint/typescript-eslint/issues/2540#issuecomment-692866111)
+- [An official maintainer's views on the "don't use object" rule... It's good to think for yourself like this guy.](https://github.com/microsoft/TypeScript/issues/40529#issuecomment-692205931)
 
 ### Vue Quirks
 
