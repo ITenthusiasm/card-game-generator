@@ -13,7 +13,7 @@ export default Vue.extend({
     card: { type: Object, required: true },
   },
   computed: {
-    cardStyles(): object {
+    cardStyles(): Partial<CSSStyleDeclaration> {
       return {
         color: this.color,
         backgroundColor: this.backgroundColor,
@@ -23,7 +23,7 @@ export default Vue.extend({
     color(): string {
       if (this.card.revealed) return "white";
 
-      if (this.playerRole === "Codemaster" || this.gameState === "Completed")
+      if (this.playerRole === "Codemaster" || this.gameStatus === "Completed")
         return this.mapColor(this.card.type);
 
       return "black";
@@ -34,12 +34,14 @@ export default Vue.extend({
     playerRole(): string {
       return this.$store.state.player.role;
     },
-    gameState(): string {
+    gameStatus(): string {
       return this.$store.state.gameState.status;
     },
   },
   methods: {
     reveal(card: any): void {
+      if (card.revealed || this.gameStatus === "Completed") return;
+
       this.$store.dispatch("handleAction", { action: "Reveal", item: card });
     },
     mapColor(color: string): string {
