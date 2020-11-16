@@ -113,6 +113,8 @@
 - [Custom events with components (example includes v-model)](https://vuejs.org/v2/guide/components-custom-events.html)
 - Apparently, `select` elements and their corresponding `option` elements are very complex and difficult to style. For now, we're forgoing complex styles to proceed with development.
 
+- [Understanding the `aria-label`](https://developers.google.com/web/fundamentals/accessibility/semantics-aria/aria-labels-and-relationships)
+
 ### Web Sockets and Server-Sent Events
 
 - Server-sent events allow a server to send information to the client. (Eg. the person in theh browser) It's only one way.

@@ -1,6 +1,10 @@
 <template>
   <div>
-    <form v-if="gameInactive" @submit.prevent="updatePlayer">
+    <form
+      v-if="gameInactive"
+      aria-label="game-settings"
+      @submit.prevent="updatePlayer"
+    >
       <label for="team">Team</label>
       <BaseSelect id="team" v-model="playerTeam">
         <option value="" disabled>Select a team</option>
@@ -18,8 +22,8 @@
       <BaseButton type="submit">Send Player Data</BaseButton>
     </form>
 
-    <template v-if="!gameInactive">
-      <div align="center">
+    <div v-else aria-label="game">
+      <div class="game-board">
         <div class="cards-box">
           <CodenamesCard
             v-for="card in gameState.cards"
@@ -38,7 +42,7 @@
 
         <BaseButton type="submit">Send Code</BaseButton>
       </form>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -88,6 +92,11 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.game-board {
+  display: flex;
+  justify-content: center;
+}
+
 .cards-box {
   width: 700px;
   height: 600px;
@@ -95,7 +104,7 @@ export default Vue.extend({
   display: grid;
   grid-gap: 0.5rem;
   grid-template-columns: repeat(5, 1fr);
-  justify-self: center;
+  justify-items: center;
   align-items: center;
 }
 
