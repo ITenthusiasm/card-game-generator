@@ -36,7 +36,7 @@ export enum Uno {
 
 export const Codenames = [
   "shark",
-  "cutton",
+  "cotton",
   "wind",
   "mass",
   "tag",
