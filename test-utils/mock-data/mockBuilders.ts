@@ -20,18 +20,19 @@ export function buildPlayer(overrides: Partial<Player> = {}): Player {
  * Creates a mock `Card` object by randomly generating a card. The
  * card's type and value will always be of the same "class" (Codenames, RED, "shark")
  * but will not necessarily always make sense (Uno, WILD, 0).
+ * @param cardGroup The desired card group (Codenames, Uno, etc.)
  */
-export function buildCard(): Card {
-  const cardClasses = Object.keys(CardTypes);
-  const cardClass = faker.random.arrayElement(cardClasses);
+export function buildCard(cardGroup?: keyof typeof CardTypes): Card {
+  const keys = Object.keys(CardTypes);
+  const key = cardGroup || faker.random.arrayElement(keys);
 
-  const type = faker.random.objectElement(CardTypes[cardClass]) as CardType;
+  const type = faker.random.objectElement(CardTypes[key]) as CardType;
   let value: CardValue;
 
-  if (Array.isArray(CardValues[cardClass])) {
-    value = faker.random.arrayElement(CardValues[cardClass]);
+  if (Array.isArray(CardValues[key])) {
+    value = faker.random.arrayElement(CardValues[key]);
   } else {
-    value = faker.random.arrayElement(getEnumValues(CardValues[cardClass]));
+    value = faker.random.arrayElement(getEnumValues(CardValues[key]));
   }
 
   return new Card(type, value);
