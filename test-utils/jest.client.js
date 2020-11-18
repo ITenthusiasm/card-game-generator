@@ -10,6 +10,10 @@ module.exports = {
   coverageDirectory: "<rootDir>/coverage/src",
   displayName: "client",
   moduleFileExtensions: ["ts", "vue", "js"], // "js" is required by Jest for some reason
+  moduleNameMapper: {
+    "@/(.*)": "<rootDir>/src/$1",
+  },
+  setupFilesAfterEnv: ["<rootDir>/test-utils/client-setup.ts"],
   testEnvironment: "jest-environment-jsdom", // default
   testMatch: ["<rootDir>/src/**/*.test.ts"],
   transform: { "\\.vue$": "vue-jest", "\\.ts$": "babel-jest" },

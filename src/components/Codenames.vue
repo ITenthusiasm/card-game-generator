@@ -75,15 +75,17 @@ export default Vue.extend({
       this.$store.dispatch("updatePlayer", playerInfo);
     },
     sendCode(): void {
-      const number = Number(this.number);
+      const gameWords = this.gameState.cards.map((c: any) => c.value);
+      const code = { word: this.word.trim(), number: Number(this.number) };
+      const gameAction = "Give Code";
 
-      if (this.word.trim().length && Number.isInteger(number) && number >= 0) {
-        const code = { word: this.word, number };
-        const data = { action: "Give Code", item: code };
+      // Code must use a physical word that is not on the board
+      if (!code.word.length || gameWords.includes(code.word)) return;
 
-        this.$store.dispatch("handleAction", data);
-      }
+      // Code must use a number that is a positive integer
+      if (!Number.isInteger(code.number) || code.number < 0) return;
 
+      this.$store.dispatch("handleAction", { action: gameAction, item: code });
       this.word = "";
       this.number = "";
     },
