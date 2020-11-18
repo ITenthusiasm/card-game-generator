@@ -25,16 +25,19 @@ export default Vue.extend({
   },
   methods: {
     openLobby(): void {
-      if (this.playerName.trim().length) {
-        this.$store.dispatch("openLobby", this.playerName);
+      const playerName = this.playerName.trim();
+
+      if (playerName.length) {
+        this.$store.dispatch("openLobby", playerName);
         this.$router.push("/lobby");
       }
     },
     joinLobby(): void {
-      const playerInfo = { playerName: this.playerName, lobbyId: this.lobbyId };
+      const playerName = this.playerName.trim();
+      const lobbyId = this.lobbyId.trim();
 
-      if (this.playerName.trim().length) {
-        this.$store.dispatch("joinLobby", playerInfo);
+      if (playerName.length && lobbyId.length) {
+        this.$store.dispatch("joinLobby", { playerName, lobbyId });
         this.$router.push("/lobby");
       }
     },
