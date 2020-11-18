@@ -29,6 +29,7 @@
             v-for="card in gameState.cards"
             :key="card.value"
             :card="card"
+            @click.native="reveal(card)"
           />
         </div>
       </div>
@@ -77,7 +78,6 @@ export default Vue.extend({
     sendCode(): void {
       const gameWords = this.gameState.cards.map((c: any) => c.value);
       const code = { word: this.word.trim(), number: Number(this.number) };
-      const gameAction = "Give Code";
 
       // Code must use a physical word that is not on the board
       if (!code.word.length || gameWords.includes(code.word)) return;
@@ -85,9 +85,14 @@ export default Vue.extend({
       // Code must use a number that is a positive integer
       if (!Number.isInteger(code.number) || code.number < 0) return;
 
-      this.$store.dispatch("handleAction", { action: gameAction, item: code });
+      this.$store.dispatch("handleAction", { action: "Give Code", item: code });
       this.word = "";
       this.number = "";
+    },
+    reveal(card: any): void {
+      if (card.revealed || this.gameState.status === "Completed") return;
+
+      this.$store.dispatch("handleAction", { action: "Reveal", item: card });
     },
   },
 });

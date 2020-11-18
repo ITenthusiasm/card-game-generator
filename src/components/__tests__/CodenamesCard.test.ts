@@ -1,4 +1,4 @@
-import { render, fireEvent } from "@testing-library/vue";
+import { render } from "@testing-library/vue";
 import "@testing-library/jest-dom/extend-expect";
 import CodenamesCard from "../CodenamesCard.vue";
 
@@ -99,63 +99,5 @@ describe("Codenames Card", () => {
     card.type = "Black";
     await updateProps({ card: { ...card } });
     expect(getByText(card.value)).toHaveStyle({ color: "Black" });
-  });
-
-  it("Dispatches 'handleAction' when the card is clicked", async () => {
-    const card = { ...defaultCard };
-    const store = {
-      state: {
-        player: { role: "Agent" },
-        gameState: { status: "Active" },
-      },
-      actions: {
-        handleAction: jest.fn(),
-      },
-    };
-    const expectedAction = { action: "Reveal", item: card };
-
-    const { getByText } = renderComponent({ card, store });
-    await fireEvent.click(getByText(card.value));
-
-    expect(store.actions.handleAction).toHaveBeenCalledWith(
-      expect.anything(),
-      expectedAction
-    );
-  });
-
-  it("Does not dispatch 'handleAction' when a revealed card is clicked", async () => {
-    const card = { ...defaultCard, revealed: true };
-    const store = {
-      state: {
-        player: { role: "Agent" },
-        gameState: { status: "Active" },
-      },
-      actions: {
-        handleAction: jest.fn(),
-      },
-    };
-
-    const { getByText } = renderComponent({ card, store });
-    await fireEvent.click(getByText(card.value));
-
-    expect(store.actions.handleAction).not.toHaveBeenCalled();
-  });
-
-  it("Does not dispatch 'handleAction' when the game is Completed", async () => {
-    const card = { ...defaultCard, revealed: false };
-    const store = {
-      state: {
-        player: { role: "Agent" },
-        gameState: { status: "Completed" },
-      },
-      actions: {
-        handleAction: jest.fn(),
-      },
-    };
-
-    const { getByText } = renderComponent({ card, store });
-    await fireEvent.click(getByText(card.value));
-
-    expect(store.actions.handleAction).not.toHaveBeenCalled();
   });
 });

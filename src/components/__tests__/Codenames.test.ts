@@ -24,7 +24,7 @@ describe("Codenames", () => {
   const activeGameStore = {
     state: {
       player: { role: "Agent" },
-      gameState: { status: "Active", cards: defaultCards },
+      gameState: { cards: defaultCards, status: "Active" },
     },
     actions: { handleAction: jest.fn() },
   };
@@ -171,5 +171,64 @@ describe("Codenames", () => {
     // Verify that the inputs were never emptied
     expect(wordInput).not.toHaveValue("");
     expect(numberInput).not.toHaveValue("");
+  });
+
+  /* Game: Card Interactions */
+  it("Attempts to reveal a card when one is clicked", async () => {
+    const card = { type: "Red", value: "TEST_VALUE" };
+    const store = {
+      state: {
+        player: { role: "Codemaster" },
+        gameState: { cards: [card], status: "Active" },
+      },
+      actions: {
+        handleAction: jest.fn(),
+      },
+    };
+    const expectedAction = { action: "Reveal", item: card };
+
+    const { getByText } = renderComponent({ store });
+    await fireEvent.click(getByText(card.value));
+
+    expect(store.actions.handleAction).toHaveBeenCalledWith(
+      expect.anything(),
+      expectedAction
+    );
+  });
+
+  it("Does not attempt to reveal a card that is already revealed", async () => {
+    const card = { type: "Red", value: "TEST_VALUE", revealed: true };
+    const store = {
+      state: {
+        player: { role: "Codemaster" },
+        gameState: { cards: [card], status: "Active" },
+      },
+      actions: {
+        handleAction: jest.fn(),
+      },
+    };
+
+    const { getByText } = renderComponent({ store });
+    await fireEvent.click(getByText(card.value));
+
+    expect(store.actions.handleAction).not.toHaveBeenCalled();
+  });
+
+  it("Does not attempt to reveal a card when the game is Completed", async () => {
+    const card = { type: "Red", value: "TEST_VALUE" };
+    const store = {
+      state: {
+        player: { role: "Codemaster" },
+        gameState: { cards: [card], status: "Completed" },
+      },
+      actions: {
+        handleAction: jest.fn(),
+      },
+    };
+
+    const { getByText } = renderComponent({ store });
+    await fireEvent.click(getByText(card.value));
+
+    expect(store.actions.handleAction).not.toHaveBeenCalled();
   });
 });

@@ -19,5 +19,5 @@
 - [ ] If `lobby.addPlayer` ever starts getting used, it needs to avoid adding duplicate players.
   - [ ] You may want to consider removing `lobby.addPlayer` altogether. It may not be fully practical or safe.
 - [ ] Investigate the webpack-dev-middleware warning that's happening right now. This is likely a Vue-related issue. (Our React app didn't have this problem.)
-- [ ] Consider moving `CodenamesCard.reveal` method to the `Codenames` component. That might make more sense since it's where the physical game is.
+- [x] Consider moving `CodenamesCard.reveal` method to the `Codenames` component. That might make more sense since it's where the physical game is.
 - [ ] Need to correct the `tsconfig.json` file at some point.

@@ -1,5 +1,5 @@
 <template>
-  <div class="codenames-card" :style="cardStyles" @click="reveal(card)">
+  <div class="codenames-card" :style="cardStyles">
     {{ card.value }}
   </div>
 </template>
@@ -39,11 +39,6 @@ export default Vue.extend({
     },
   },
   methods: {
-    reveal(card: any): void {
-      if (card.revealed || this.gameStatus === "Completed") return;
-
-      this.$store.dispatch("handleAction", { action: "Reveal", item: card });
-    },
     mapColor(color: string): string {
       switch (color) {
         case "Red":
