@@ -6,7 +6,7 @@ import store from "./store";
 /* Start code for Automatic Global Vue Component Registration */
 const requireComponent = require.context(
   "./components",
-  false,
+  true,
   /Base[A-Z]\w+\.(vue)$/
 );
 
