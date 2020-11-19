@@ -7,3 +7,5 @@ import BaseSelect from "../src/components/_common/BaseSelect.vue";
 Vue.component("BaseButton", BaseButton);
 Vue.component("BaseInput", BaseInput);
 Vue.component("BaseSelect", BaseSelect);
+
+process.env.CLIENT_SOCKET_URL = "ws://localhost:3000";
