@@ -23,6 +23,7 @@ const config: webpack.Configuration = {
     new HtmlWebpackPlugin({ template: "public/index.html", inject: true }),
     new VueLoaderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.EnvironmentPlugin(["CLIENT_SOCKET_URL"]),
   ],
   resolve: {
     extensions: [".js", ".ts", ".vue"],

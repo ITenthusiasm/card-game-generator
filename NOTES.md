@@ -143,6 +143,7 @@
 - [Using `require.context` (webpack-specific) with Typescript](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18446)
 - [Vue's "Automatic Global Registration"](https://vuejs.org/v2/guide/components-registration.html#Automatic-Global-Registration-of-Base-Components)
 - [Useful random string generation discussion](https://gist.github.com/6174/6062387)
+- [Using `process.env` with `webpack`](https://webpack.js.org/plugins/environment-plugin/)
 
 ### TypeScript
 

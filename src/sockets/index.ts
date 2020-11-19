@@ -1,4 +1,4 @@
-const webSocket = new WebSocket("ws://localhost:3000");
+const webSocket = new WebSocket(process.env.CLIENT_SOCKET_URL as string);
 
 webSocket.addEventListener("open", function () {
   console.warn("Connected to game server!");
