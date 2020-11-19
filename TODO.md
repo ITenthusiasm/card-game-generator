@@ -21,3 +21,4 @@
 - [ ] Investigate the webpack-dev-middleware warning that's happening right now. This is likely a Vue-related issue. (Our React app didn't have this problem.)
 - [x] Consider moving `CodenamesCard.reveal` method to the `Codenames` component. That might make more sense since it's where the physical game is.
 - [ ] Need to correct the `tsconfig.json` file at some point.
+- [ ] Consider giving each individual game their own start/reset buttons... Is it worth it with the redundant logic?

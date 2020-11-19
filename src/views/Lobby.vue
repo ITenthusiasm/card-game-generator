@@ -2,11 +2,11 @@
   <div v-if="player">
     <GameSelection />
 
-    <template v-if="selectedGame">
+    <div v-if="selectedGame" aria-label="game-screen">
       <BaseButton @click="startGame">Start Game</BaseButton>
       <BaseButton @click="resetGame">New Game</BaseButton>
       <component :is="selectedGame" />
-    </template>
+    </div>
   </div>
 </template>
 
