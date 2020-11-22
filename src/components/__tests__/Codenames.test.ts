@@ -1,4 +1,4 @@
-import { render, fireEvent } from "@testing-library/vue";
+import { render, fireEvent, waitFor } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 import Codenames from "../Codenames.vue";
@@ -54,8 +54,6 @@ describe("Codenames", () => {
     expect(queryByLabelText("game-settings")).not.toBeInTheDocument();
   });
 
-  // Warning: Typically events with Vue seem to require awaiting fireEvent...
-  // not sure why regular synchronicity works here.
   it("Sends the provided player info when the submission button is clicked", () => {
     const playerInfo = { team: "Red", role: "Codemaster" };
 
@@ -99,7 +97,7 @@ describe("Codenames", () => {
   });
 
   /* Game: Code Inputs */
-  it("Formats, sends, and clears the provided code info when the submission button is clicked", async () => {
+  it("Formats, sends, and clears the provided code info when the submission button is clicked", () => {
     const word = "FAKE_CODE\t";
     const number = "\t3";
     const expectedData = {
@@ -114,21 +112,22 @@ describe("Codenames", () => {
     const wordInput = getByLabelText("Code");
     const numberInput = getByLabelText("Number");
 
-    // update is needed for v-model (instead of userEvent.type)
-    await fireEvent.update(wordInput, word);
-    await fireEvent.update(numberInput, number);
-    await fireEvent.click(getByText("Send Code"));
+    userEvent.type(wordInput, word);
+    userEvent.type(numberInput, number);
+    userEvent.click(getByText("Send Code"));
 
     expect(activeGameStore.actions.handleAction).toHaveBeenCalledWith(
       expect.anything(),
       expectedData
     );
 
-    expect(wordInput).toHaveValue("");
-    expect(numberInput).toHaveValue("");
+    waitFor(() => {
+      expect(wordInput).toHaveValue("");
+      expect(wordInput).toHaveValue("");
+    });
   });
 
-  it("Does not submit invalid code info when the submission button is clicked", async () => {
+  it("Does not submit invalid code info when the submission button is clicked", () => {
     const gameWords = activeGameStore.state.gameState.cards.map(c => c.value);
 
     // Create invalid codes
@@ -146,26 +145,29 @@ describe("Codenames", () => {
     const numberInput = getByLabelText("Number");
 
     /** Create and send a Codenames code */
-    async function sendCode(code: { word: string; number: string }) {
-      await fireEvent.update(wordInput, code.word);
-      await fireEvent.update(numberInput, code.number);
-      await fireEvent.click(getByText("Send Code"));
+    function sendCode(code: { word: string; number: string }) {
+      userEvent.clear(wordInput);
+      userEvent.clear(numberInput);
+
+      userEvent.type(wordInput, code.word);
+      userEvent.type(numberInput, code.number);
+      userEvent.click(getByText("Send Code"));
     }
 
     // Verify failures
-    await sendCode(noWordCode);
+    sendCode(noWordCode);
     expect(activeGameStore.actions.handleAction).not.toHaveBeenCalled();
 
-    await sendCode(inGameWordCode);
+    sendCode(inGameWordCode);
     expect(activeGameStore.actions.handleAction).not.toHaveBeenCalled();
 
-    await sendCode(noNumberCode);
+    sendCode(noNumberCode);
     expect(activeGameStore.actions.handleAction).not.toHaveBeenCalled();
 
-    await sendCode(noIntegerCode);
+    sendCode(noIntegerCode);
     expect(activeGameStore.actions.handleAction).not.toHaveBeenCalled();
 
-    await sendCode(negativeCode);
+    sendCode(negativeCode);
     expect(activeGameStore.actions.handleAction).not.toHaveBeenCalled();
 
     // Verify that the inputs were never emptied
@@ -174,7 +176,7 @@ describe("Codenames", () => {
   });
 
   /* Game: Card Interactions */
-  it("Attempts to reveal a card when one is clicked", async () => {
+  it("Attempts to reveal a card when one is clicked", () => {
     const card = { type: "Red", value: "TEST_VALUE" };
     const store = {
       state: {
@@ -188,15 +190,17 @@ describe("Codenames", () => {
     const expectedAction = { action: "Reveal", item: card };
 
     const { getByText } = renderComponent({ store });
-    await fireEvent.click(getByText(card.value));
+    fireEvent.click(getByText(card.value));
 
-    expect(store.actions.handleAction).toHaveBeenCalledWith(
-      expect.anything(),
-      expectedAction
+    waitFor(() =>
+      expect(store.actions.handleAction).toHaveBeenCalledWith(
+        expect.anything(),
+        expectedAction
+      )
     );
   });
 
-  it("Does not attempt to reveal a card that is already revealed", async () => {
+  it("Does not attempt to reveal a card that is already revealed", () => {
     const card = { type: "Red", value: "TEST_VALUE", revealed: true };
     const store = {
       state: {
@@ -209,12 +213,12 @@ describe("Codenames", () => {
     };
 
     const { getByText } = renderComponent({ store });
-    await fireEvent.click(getByText(card.value));
+    fireEvent.click(getByText(card.value));
 
     expect(store.actions.handleAction).not.toHaveBeenCalled();
   });
 
-  it("Does not attempt to reveal a card when the game is Completed", async () => {
+  it("Does not attempt to reveal a card when the game is Completed", () => {
     const card = { type: "Red", value: "TEST_VALUE" };
     const store = {
       state: {
@@ -227,7 +231,7 @@ describe("Codenames", () => {
     };
 
     const { getByText } = renderComponent({ store });
-    await fireEvent.click(getByText(card.value));
+    fireEvent.click(getByText(card.value));
 
     expect(store.actions.handleAction).not.toHaveBeenCalled();
   });

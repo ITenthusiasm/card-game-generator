@@ -158,3 +158,4 @@
     - **Note**: It seems that installing `babel-jest` is unnecessary. Jest automatically knows what `babel-jest` means even if you haven't personally installed it locally. (Perhaps it's a part of Jest's dependencies?)
   - [Configuring Jest's expected module extensions](https://jestjs.io/docs/en/configuration#modulefileextensions-arraystring)
   - Note that the complexities with `vue-jest` are the reason we had to install the extra weird `"babel-core": "^7.0.0-bridge.0"` package. Whenever `vue-jest` properly gets updated/fixed, you should remove this extra dependency as soon as possible.
+- See [our github repo](https://github.com/ITenthusiasm/synchronous-vue-testing-library) for more info on why some parts of Vue testing require `async/await` and other parts don't. Note that we should try to keep things as synchronous as possible from now on for Vue tests.

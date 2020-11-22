@@ -1,4 +1,5 @@
-import { render, fireEvent } from "@testing-library/vue";
+import { render, fireEvent, waitFor } from "@testing-library/vue";
+import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 import Home from "../Home.vue";
 
@@ -25,14 +26,14 @@ describe("Home", () => {
     window.location.href = initialUrl;
   });
 
-  it("Creates a new lobby with the provided information (trimmed) when 'Create Lobby' is clicked", async () => {
+  it("Creates a new lobby with the provided information (trimmed) when 'Create Lobby' is clicked", () => {
     const playerName = "TEST_NAME\t";
     const expectedData = playerName.trim();
 
     const { getByLabelText, getByText } = renderComponent();
 
-    await fireEvent.update(getByLabelText("Player Name"), playerName);
-    await fireEvent.click(getByText("Create Lobby"));
+    userEvent.type(getByLabelText("Player Name"), playerName);
+    fireEvent.click(getByText("Create Lobby"));
 
     expect(defaultStore.actions.openLobby).toHaveBeenCalledWith(
       expect.anything(),
@@ -44,19 +45,19 @@ describe("Home", () => {
     );
   });
 
-  it("Does not attempt to create a lobby when the player name is missing", async () => {
+  it("Does not attempt to create a lobby when the player name is missing", () => {
     const playerName = "\n \t";
 
     const { getByLabelText, getByText } = renderComponent();
 
-    await fireEvent.update(getByLabelText("Player Name"), playerName);
-    await fireEvent.click(getByText("Create Lobby"));
+    userEvent.type(getByLabelText("Player Name"), playerName);
+    fireEvent.click(getByText("Create Lobby"));
 
     expect(defaultStore.actions.openLobby).not.toHaveBeenCalled();
     expect(window.location.href).toBe(initialUrl);
   });
 
-  it("Attempts to join a lobby using the provided information (trimmed) when 'Join Lobby' is clicked", async () => {
+  it("Attempts to join a lobby using the provided information (trimmed) when 'Join Lobby' is clicked", () => {
     const playerName = "TEST_NAME\t";
     const lobbyId = "\tTEST_LOBBY_ID";
     const expectedData = {
@@ -66,9 +67,9 @@ describe("Home", () => {
 
     const { getByLabelText, getByText } = renderComponent();
 
-    await fireEvent.update(getByLabelText("Player Name"), playerName);
-    await fireEvent.update(getByLabelText("Lobby Passcode"), lobbyId);
-    await fireEvent.click(getByText("Join Lobby"));
+    userEvent.type(getByLabelText("Player Name"), playerName);
+    userEvent.type(getByLabelText("Lobby Passcode"), lobbyId);
+    fireEvent.click(getByText("Join Lobby"));
 
     expect(defaultStore.actions.joinLobby).toHaveBeenCalledWith(
       expect.anything(),
@@ -90,28 +91,31 @@ describe("Home", () => {
     const lobbyIdInput = getByLabelText("Lobby Passcode");
 
     /** Create and send a Codenames code */
-    async function sendInfo(info: { playerName: string; lobbyId: string }) {
-      await fireEvent.update(playerNameInput, info.playerName);
-      await fireEvent.update(lobbyIdInput, info.lobbyId);
-      await fireEvent.click(getByText("Join Lobby"));
+    function sendInfo(info: { playerName: string; lobbyId: string }) {
+      userEvent.clear(playerNameInput);
+      userEvent.clear(lobbyIdInput);
+
+      userEvent.type(playerNameInput, info.playerName);
+      userEvent.type(lobbyIdInput, info.lobbyId);
+      fireEvent.click(getByText("Join Lobby"));
     }
 
     // No player name or lobby id
     playerName = "\n \t";
     lobbyId = "\n \t";
-    await sendInfo({ playerName, lobbyId });
+    sendInfo({ playerName, lobbyId });
     expect(defaultStore.actions.joinLobby).not.toHaveBeenCalled();
 
     // No player name
     playerName = "\n \t";
     lobbyId = "TEST_LOBBY_ID";
-    await sendInfo({ playerName, lobbyId });
+    sendInfo({ playerName, lobbyId });
     expect(defaultStore.actions.joinLobby).not.toHaveBeenCalled();
 
     // No lobby id
     playerName = "TEST_NAME";
     lobbyId = "\n \t";
-    await sendInfo({ playerName, lobbyId });
+    sendInfo({ playerName, lobbyId });
     expect(defaultStore.actions.joinLobby).not.toHaveBeenCalled();
 
     expect(window.location.href).toBe(initialUrl);
