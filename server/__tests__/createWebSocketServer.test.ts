@@ -5,6 +5,7 @@ import http from "http";
 import createWebSocketServer from "../createWebSocketServer";
 import * as Games from "../games";
 import { Player } from "../models";
+import waitFor from "../../test-utils/helpers/waitFor";
 
 interface MockCodenames {
   instances: {
@@ -413,22 +414,6 @@ function startServer(p: number): Promise<http.Server> {
 
   return new Promise(resolve => {
     server.listen(p, () => resolve(server));
-  });
-}
-
-/**
- * Forces a process to wait until the provided `predicate` is satisfied.
- * @param predicate Function returning a `boolean`. Represents the condition you're waiting for.
- */
-function waitFor(predicate: () => boolean): Promise<void> {
-  return new Promise<void>(function (resolve) {
-    setTimeout(function () {
-      if (predicate()) {
-        resolve();
-      } else {
-        waitFor(predicate).then(resolve);
-      }
-    }, 5);
   });
 }
 
