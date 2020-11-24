@@ -1,8 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import webSocket from "../sockets";
+import createWebSocket from "../sockets";
 
 Vue.use(Vuex);
+
+const webSocket = createWebSocket();
 
 const store = new Vuex.Store({
   state: {
@@ -78,39 +80,6 @@ const store = new Vuex.Store({
   getters: {},
 });
 
-webSocket.addEventListener("message", function (message) {
-  const [messageType, dataString] = message.data.split("|");
-  const data = JSON.parse(dataString);
-
-  switch (messageType) {
-    case "SET_LOBBY": {
-      store.commit("SET_LOBBY", data);
-      break;
-    }
-    case "SET_PLAYER": {
-      store.commit("SET_PLAYER", data);
-      break;
-    }
-    case "UPDATE_PLAYERS": {
-      store.commit("UPDATE_PLAYERS", data);
-      break;
-    }
-    case "SET_GAMES": {
-      store.commit("SET_GAMES", data);
-      break;
-    }
-    case "SET_GAME": {
-      store.commit("SET_GAME", data);
-      break;
-    }
-    case "SET_GAME_STATE": {
-      store.commit("SET_GAME_STATE", data);
-      break;
-    }
-    default: {
-      break;
-    }
-  }
-});
+webSocket.registerStore(store);
 
 export default store;
