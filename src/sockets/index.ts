@@ -26,7 +26,7 @@ function createWebSocket(): StoreWebSocket {
   // Prepare store interactions
   webSocket.addEventListener("message", function (message) {
     const [messageType, dataString] = message.data.split("|");
-    const data = JSON.parse(dataString);
+    const data = dataString ? JSON.parse(dataString) : dataString;
 
     switch (messageType) {
       case "SET_LOBBY": {
