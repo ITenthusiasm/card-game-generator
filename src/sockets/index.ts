@@ -10,7 +10,7 @@ interface StoreWebSocket extends WebSocket {
 }
 
 /** Creates a client WebSocket that can communicate with a registered Vuex store. */
-function createWebSocket(): StoreWebSocket {
+function createWebSocketClient(): StoreWebSocket {
   const url = process.env.CLIENT_SOCKET_URL as string;
   let localStore: Store<unknown>;
 
@@ -62,4 +62,4 @@ function createWebSocket(): StoreWebSocket {
   return webSocket;
 }
 
-export default createWebSocket;
+export default createWebSocketClient;

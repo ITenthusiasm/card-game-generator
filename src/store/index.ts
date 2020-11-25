@@ -1,10 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import createWebSocket from "../sockets";
+import createWebSocketClient from "../sockets";
 
 Vue.use(Vuex);
 
-const webSocket = createWebSocket();
+const webSocket = createWebSocketClient();
 
 const store = new Vuex.Store({
   state: {

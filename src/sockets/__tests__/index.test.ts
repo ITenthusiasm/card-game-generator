@@ -1,6 +1,6 @@
 import { Store } from "vuex";
 import WebSocket from "ws";
-import createWebSocket from "..";
+import createWebSocketClient from "..";
 import waitFor from "../../../test-utils/helpers/waitFor";
 
 // Important contants
@@ -24,7 +24,7 @@ describe("Client Web Socket", () => {
   // Initialize Test variables
   let webSocketServer: WebSocket.Server;
   let serverWebSocket: WebSocket;
-  let clientWebSocket: ReturnType<typeof createWebSocket>;
+  let clientWebSocket: ReturnType<typeof createWebSocketClient>;
   let mockStore: Store<unknown>;
 
   const mockData = { a: "a", b: "b", c: "c" };
@@ -37,7 +37,7 @@ describe("Client Web Socket", () => {
     // Initialize client WebSocket
     process.env.CLIENT_SOCKET_URL = `ws://localhost:${port}`;
     mockStore = new Store({});
-    clientWebSocket = createWebSocket();
+    clientWebSocket = createWebSocketClient();
     clientWebSocket.registerStore(mockStore);
 
     clientWebSocket.addEventListener("message", m => clientMessages.push(m));
