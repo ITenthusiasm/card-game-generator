@@ -1,4 +1,4 @@
-import { render, fireEvent, waitFor } from "@testing-library/vue";
+import { render, fireEvent } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 import Home from "../Home.vue";

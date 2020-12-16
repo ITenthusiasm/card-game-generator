@@ -4,7 +4,7 @@ import { Lobby } from "./models";
 import { randomString } from "./utils/algorithms";
 
 interface AugmentedWebSocket extends WebSocket {
-  lobbyId: string;
+  lobbyId?: string;
 }
 
 const lobbies: Record<string, Lobby> = {};
