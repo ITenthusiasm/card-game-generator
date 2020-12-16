@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import createWebSocketClient from "../sockets";
+import { Player } from "../../server/models";
 
 Vue.use(Vuex);
 
@@ -9,8 +10,8 @@ const webSocket = createWebSocketClient();
 const store = new Vuex.Store({
   state: {
     lobbyId: "",
-    player: null as any,
-    players: {} as object[],
+    player: null as Player | null,
+    players: [] as Player[],
     games: [] as string[],
     selectedGame: "",
     gameState: {},
@@ -32,7 +33,7 @@ const store = new Vuex.Store({
     UPDATE_PLAYERS(state, players: any[]): void {
       state.players = players;
 
-      state.player = players.find(p => p.id === state.player.id);
+      state.player = players.find(p => p.id === state.player?.id);
       localStorage.setItem("player", JSON.stringify(state.player));
     },
     SET_GAMES(state, games: string[]): void {
