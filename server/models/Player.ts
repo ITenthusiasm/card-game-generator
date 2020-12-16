@@ -12,9 +12,9 @@ class Player {
   #id: string;
   #name: string;
 
-  role: Role;
-  team: string;
-  actions: Action[];
+  role?: Role;
+  team?: string;
+  actions?: Action[];
   active: boolean;
 
   constructor(playerInfo: PlayerInfo) {

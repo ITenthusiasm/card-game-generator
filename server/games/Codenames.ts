@@ -115,7 +115,7 @@ class Codenames extends Game {
       return this._state;
     }
 
-    if (!player.active || !player.actions.includes(action)) {
+    if (!player.active || !player.actions?.includes(action)) {
       // Maybe needs a warning message... Or maybe UI can do that.
       const errorMessage = `Illegal action from player ${player.name} (${player.id}) ignored.`;
       console.error(errorMessage);
@@ -146,7 +146,7 @@ class Codenames extends Game {
         }
 
         // Confirm code
-        this._state.codes[player.team].push(code);
+        this._state.codes[player.team as typeof RED | typeof BLUE].push(code);
         this._state.guesses = code.number + 1;
 
         this._players[this.#playerIndex].actions = [Actions.Codenames.REVEAL];
@@ -193,7 +193,7 @@ class Codenames extends Game {
             this._state.winningTeam = RED;
           } else if (gameCards.filter(c => c.type === BLUE).every(c => c.revealed)) {
             this._state.winningTeam = BLUE;
-          } else if (gameCards.find(c => c.type === BLACK).revealed) {
+          } else if (gameCards.find(c => c.type === BLACK)?.revealed) {
             this._state.winningTeam = player.team === RED ? BLUE : RED;
           }
 
@@ -255,7 +255,7 @@ class Codenames extends Game {
     return (
       gameCards.filter(c => c.type === RED).every(c => c.revealed) ||
       gameCards.filter(c => c.type === BLUE).every(c => c.revealed) ||
-      gameCards.find(c => c.type === BLACK).revealed
+      (gameCards.find(c => c.type === BLACK)?.revealed as boolean)
     );
   }
 
@@ -288,9 +288,9 @@ class Codenames extends Game {
     this._state = { status: GameStatus.INACTIVE } as CodenamesState;
 
     this._players.forEach(p => {
-      p.team = null;
-      p.role = null;
-      p.actions = null;
+      p.team = undefined;
+      p.role = undefined;
+      p.actions = undefined;
       p.active = false;
     });
 

@@ -399,7 +399,12 @@ describe("Codenames", () => {
     // All players should have no team, no role, and no actions
     // All players should become inactive
     players.forEach(p =>
-      expect([p.team, p.role, p.actions, p.active]).toEqual([null, null, null, false])
+      expect([p.team, p.role, p.actions, p.active]).toEqual([
+        undefined,
+        undefined,
+        undefined,
+        false,
+      ])
     );
 
     /* THE GAME STATE */
