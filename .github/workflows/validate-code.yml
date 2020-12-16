@@ -1,6 +1,7 @@
+name: validate-code
 on: [push]
 jobs:
-  test-and-lint-code:
+  run-validation:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
