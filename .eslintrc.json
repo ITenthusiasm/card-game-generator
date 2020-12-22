@@ -46,6 +46,7 @@
     "no-shadow": "off", // Conflicts with typescript variation
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "vue/component-tags-order": [
       "error",
       {

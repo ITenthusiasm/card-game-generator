@@ -33,7 +33,7 @@ const store = new Vuex.Store({
     UPDATE_PLAYERS(state, players: any[]): void {
       state.players = players;
 
-      state.player = players.find(p => p.id === state.player?.id);
+      state.player = players.find(p => p.id === state.player!.id);
       localStorage.setItem("player", JSON.stringify(state.player));
     },
     SET_GAMES(state, games: string[]): void {
