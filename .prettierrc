@@ -4,6 +4,10 @@
     {
       "files": ["server/games/**.ts", "server/**/*.test.ts"],
       "options": { "printWidth": 100 }
+    },
+    {
+      "files": ["**/*.vue"],
+      "options": { "htmlWhitespaceSensitivity": "ignore", "parser": "vue" }
     }
   ]
 }
