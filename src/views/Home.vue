@@ -1,15 +1,20 @@
 <template>
-  <form align="center">
-    <label class="input-label" for="name">Player Name</label>
-    <BaseInput id="name" v-model="playerName" />
+  <div class="lobby-form">
+    <div class="form-section">
+      <label class="input-label" for="name">Player Name</label>
+      <BaseInput id="name" v-model="playerName" />
+    </div>
 
-    <label class="input-label" for="lobby">Lobby Passcode</label>
-    <BaseInput id="lobby" v-model="lobbyId" />
+    <div class="form-section">
+      <label class="input-label" for="lobby">Lobby Passcode</label>
+      <BaseInput id="lobby" v-model="lobbyId" />
+    </div>
 
-    <br />
-    <BaseButton type="button" @click="openLobby">Create Lobby</BaseButton>
-    <BaseButton type="button" @click="joinLobby">Join Lobby</BaseButton>
-  </form>
+    <div class="form-section">
+      <BaseButton type="button" @click="openLobby">Create Lobby</BaseButton>
+      <BaseButton type="button" @click="joinLobby">Join Lobby</BaseButton>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -48,5 +53,16 @@ export default Vue.extend({
 <style scoped>
 .input-label {
   display: block;
+}
+
+.lobby-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-section {
+  margin: 0.5rem 0;
+  width: 220px; /* Ensures all pieces of the "form" are wide enough to have the same left-alignment */
 }
 </style>
