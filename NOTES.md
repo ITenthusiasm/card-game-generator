@@ -142,3 +142,4 @@
   - Note that the complexities with `vue-jest` are the reason we had to install the extra weird `"babel-core": "^7.0.0-bridge.0"` package. Whenever `vue-jest` properly gets updated/fixed, you should remove this extra dependency as soon as possible.
 - See [our github repo](https://github.com/ITenthusiasm/synchronous-vue-testing-library) for more info on why some parts of Vue testing require `async/await` and other parts don't. Note that we should try to keep things as synchronous as possible from now on for Vue tests.
 - [Configuring prettier for making the Vue `template`s nicer](https://github.com/prettier/prettier/issues/5844)
+- [Apparently, to make the store update the URL, you can just import your Vue Router](https://forum.vuejs.org/t/how-to-access-this-router-in-actions/22437/8)

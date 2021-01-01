@@ -39,10 +39,6 @@ describe("Home", () => {
       expect.anything(),
       expectedData
     );
-
-    expect(window.location.href).toMatchInlineSnapshot(
-      `"http://localhost/#/lobby"`
-    );
   });
 
   it("Does not attempt to create a lobby when the player name is missing", () => {
@@ -74,10 +70,6 @@ describe("Home", () => {
     expect(defaultStore.actions.joinLobby).toHaveBeenCalledWith(
       expect.anything(),
       expectedData
-    );
-
-    expect(window.location.href).toMatchInlineSnapshot(
-      `"http://localhost/#/lobby"`
     );
   });
 

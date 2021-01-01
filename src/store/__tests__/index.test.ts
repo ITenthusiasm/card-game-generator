@@ -1,6 +1,7 @@
 import { Server } from "ws";
 import "../../../test-utils/helpers/mockoutBrowserWebSocket";
 import store from "..";
+import router from "../../router";
 import waitFor from "../../../test-utils/helpers/waitFor";
 
 interface MockWebSocket extends WebSocket {
@@ -18,6 +19,7 @@ const port = Number(process.env.JEST_WORKER_ID) + 8000;
 // Jest configuration
 jest.spyOn(console, "info").mockImplementation();
 jest.spyOn(console, "error").mockImplementation();
+jest.spyOn(router, "push");
 
 jest.mock("../../sockets", () => {
   const testPort = Number(process.env.JEST_WORKER_ID) + 8000;
@@ -53,11 +55,12 @@ describe("Store", () => {
   });
 
   /* MUTATIONS */
-  it("Updates the lobbyId for a SET_LOBBY mutation", () => {
+  it("Updates the lobbyId and the URL for a SET_LOBBY mutation", () => {
     const lobbyId = "TEST_ID";
 
     store.commit("SET_LOBBY", lobbyId);
     expect(store.state.lobbyId).toBe(lobbyId);
+    expect(window.location.href).toBe(`http://localhost/lobby/${lobbyId}`);
   });
 
   it("Does not nullify the lobbyId during SET_LOBBY if an id is not provided", () => {

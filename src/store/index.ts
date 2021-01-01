@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import createWebSocketClient from "../sockets";
+import router from "../router";
 import { Player } from "../../server/models";
 
 Vue.use(Vuex);
@@ -24,6 +25,7 @@ const store = new Vuex.Store({
       }
 
       state.lobbyId = lobbyId;
+      router.push({ name: "lobby", params: { lobbyId } });
       localStorage.setItem("lobbyId", JSON.stringify(lobbyId));
     },
     SET_PLAYER(state, player): void {

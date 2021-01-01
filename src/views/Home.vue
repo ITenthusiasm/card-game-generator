@@ -34,7 +34,6 @@ export default Vue.extend({
 
       if (playerName.length) {
         this.$store.dispatch("openLobby", playerName);
-        this.$router.push("/lobby");
       }
     },
     joinLobby(): void {
@@ -43,7 +42,6 @@ export default Vue.extend({
 
       if (playerName.length && lobbyId.length) {
         this.$store.dispatch("joinLobby", { playerName, lobbyId });
-        this.$router.push("/lobby");
       }
     },
   },
