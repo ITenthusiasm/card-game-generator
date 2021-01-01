@@ -1,6 +1,7 @@
 import { render, fireEvent } from "@testing-library/vue";
 import "@testing-library/jest-dom/extend-expect";
 import Lobby from "../Lobby.vue";
+import router from "../../router";
 
 interface MockStore {
   state: Partial<{
@@ -17,16 +18,24 @@ interface MockStore {
 
 describe("Lobby", () => {
   function renderComponent({ store }: Record<string, any>) {
-    return render(Lobby, { store });
+    return render(Lobby, { store, router });
   }
 
   /* Display Rules */
-  it("Displays nothing if no player is present", () => {
+  it("Displays an error message with a link to the home page if no player is present", () => {
     const store: MockStore = { state: { games: ["Codenames", "Uno"] } };
-    const { container } = renderComponent({ store });
+    const { container, getByText } = renderComponent({ store });
 
-    // Need to check for comment instead of emptiness because of Vue.
-    expect(container.innerHTML).toBe("<!---->");
+    // Validate the error message. Try to remove unnecessary spaces from markup.
+    const errorMessage = container.textContent!.replace(/\s{2,}/g, " ").trim();
+    expect(errorMessage).toMatchInlineSnapshot(
+      `"Oh my! How did you get here without a known name or lobby? Please join a lobby"`
+    );
+
+    // Test link
+    const link = getByText(/join a lobby/i);
+    fireEvent.click(link);
+    expect(window.location.href).toBe("http://localhost/");
   });
 
   it("Displays at least the game choices if a player is present", () => {

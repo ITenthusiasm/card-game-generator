@@ -69,51 +69,33 @@
 ### Web
 
 - [Helping ESLint resolve aliased imports](https://github.com/johvin/eslint-import-resolver-alias)
-
 - TSconfig, among other things, can be used to help Visual Studio Code resolve aliased imports.
-
   - We pulled our typescript config from Vue's. (We excluded the webpack-env type though.)
-
 - [Webpack vs. Webpack Dev Server vs. Webpack Hot Server vs. ...](https://stackoverflow.com/questions/42294827/webpack-vs-webpack-dev-server-vs-webpack-dev-middleware-vs-webpack-hot-middlewar)
-
 - [Using Typescript with Vue via webpack](https://alexjover.com/blog/integrate-typescript-in-your-vue-project/)
-
   - [Reminder on using loaders with correct syntax](https://webpack.js.org/concepts/loaders/)
-
 - [Using Typescript in Single File Components (SFC's)](https://alligator.io/vuejs/using-typescript-with-vue/)
-
 - [Adding Hot Module Reloading](https://github.com/webpack-contrib/webpack-hot-middleware)
-
 - [Add Vue without CLI](https://www.freecodecamp.org/news/how-to-create-a-vue-js-app-using-single-file-components-without-the-cli-7e73e5b8244f/)
-
 - Note that the ESLint config seems very brittle when it comes to Vue. So be extremely careful with it.
-
   - [Using ESLint with Vue](https://vuejs.github.io/eslint-plugin-vue/user-guide/#installation). (Includes the complications of handling parsers.)
   - [Vue Component tags order](https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/component-tags-order.md)
   - [Vue Break on single line elements](https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/singleline-html-element-content-newline.md0). (No reasoning was given, this adds to lines of code, and it seems dumb...so no.)
-
 - [Vue recommendations for ordering of component options](https://vuejs.org/v2/style-guide/#Component-instance-options-order-recommended)
-
 - [Understanding the default options in VueLoaderPlugin](https://vue-loader.vuejs.org/options.html#transformasseturls). This also reveals why you need to install `vue-template-compiler`, even though it _seems_ like you're not using it anywhere. (Really it's being used by default behind the scenes.)
-
 - [The order of your express routes matters, especially when using `app.use`](https://stackoverflow.com/questions/58177916/express-array-of-routes).
-
 - [How to use JSON stringify with getters in a simple way](https://stackoverflow.com/questions/42107492/json-stringify-es6-class-property-with-getter-setter). `JSON.stringify` doesn't do anything with functions. So getters and setters don't give you anything. The first solution is a quick and simple work around. Perhaps there are more options too?
-
   - Note that with this simple solution, there's no way to guarantee that players won't manipulate their own data on the client side (because getters won't be properly hidden behind getters anymore), though the server data will certainly stay pure. This is why a more robust solution would be useful.
   - [A more robust version of the simple solution (_doesn't resolve the getter no longer being a getter_)](https://github.com/Microsoft/TypeScript/issues/16858#issuecomment-384715673)
-
 - [MDN `toJSON` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior).
-
   - It seems that raw objects with getters don't have a problem with JSON serialization. However, instances of classes will often lose any getter (and setter) info during JSON serialization.
-
 - [Animating box shadow](https://tobiasahlin.com/blog/how-to-animate-box-shadow/).
-
 - [Using v-model on components](https://vuejs.org/v2/guide/components.html#Using-v-model-on-Components)
 - [Custom events with components (example includes v-model)](https://vuejs.org/v2/guide/components-custom-events.html)
 - Apparently, `select` elements and their corresponding `option` elements are very complex and difficult to style. For now, we're forgoing complex styles to proceed with development.
-
 - [Understanding the `aria-label`](https://developers.google.com/web/fundamentals/accessibility/semantics-aria/aria-labels-and-relationships)
+- [`textContent` vs. `innerText`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText)
+  - [JSDom's struggles with `innerText`](https://github.com/jsdom/jsdom/issues/1245)
 
 ### Web Sockets and Server-Sent Events
 

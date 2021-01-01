@@ -28,4 +28,8 @@ export default Vue.extend({
   font-family: "Roboto", sans-serif;
   color: blue;
 }
+
+.link {
+  color: blue;
+}
 </style>

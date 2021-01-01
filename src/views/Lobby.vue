@@ -1,11 +1,20 @@
 <template>
-  <div v-if="player">
-    <GameSelection />
+  <div>
+    <div v-if="!player" class="no-player-error">
+      Oh my! How did you get here without a known name or lobby? Please&nbsp;
+      <router-link class="link" :to="{ name: 'home' }">
+        join a lobby
+      </router-link>
+    </div>
 
-    <div v-if="selectedGame" aria-label="game-screen">
-      <BaseButton @click="startGame">Start Game</BaseButton>
-      <BaseButton @click="resetGame">New Game</BaseButton>
-      <component :is="selectedGame" />
+    <div v-else>
+      <GameSelection />
+
+      <div v-if="selectedGame" aria-label="game-screen">
+        <BaseButton @click="startGame">Start Game</BaseButton>
+        <BaseButton @click="resetGame">New Game</BaseButton>
+        <component :is="selectedGame" />
+      </div>
     </div>
   </div>
 </template>
@@ -30,3 +39,10 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+.no-player-error {
+  display: flex;
+  justify-content: center;
+}
+</style>
