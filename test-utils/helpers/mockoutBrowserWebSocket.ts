@@ -1,8 +1,8 @@
 class MockWebSocket extends WebSocket {
   static instances: MockWebSocket[] = [];
 
-  constructor(url: string, protocols?: string | string[]) {
-    super(url, protocols);
+  constructor(...args: ConstructorParameters<typeof WebSocket>) {
+    super(...args);
     MockWebSocket.instances.push(this);
   }
 }
