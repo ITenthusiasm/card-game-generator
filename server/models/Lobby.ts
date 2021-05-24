@@ -23,7 +23,7 @@ class Lobby {
 
   /** Instantiates a game for the lobby based on the game name. */
   selectGame(gameName: string): void {
-    const chosenGame = this.#games.find(g => g === gameName);
+    const chosenGame = this.#games.find(g => g === gameName) as keyof typeof Games;
     if (chosenGame && !(this.#game instanceof Games[chosenGame]))
       this.#game = new Games[chosenGame](this.#players);
   }
