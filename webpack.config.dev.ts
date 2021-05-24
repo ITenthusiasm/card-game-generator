@@ -16,9 +16,7 @@ const config: webpack.Configuration = {
     publicPath: "/",
     filename: "bundle.js", // served in memory in dev mode
   },
-  infrastructureLogging: {
-    level: "none",
-  },
+  stats: "errors-warnings",
   plugins: [
     new HtmlWebpackPlugin({ template: "public/index.html", inject: true }),
     new VueLoaderPlugin(),
