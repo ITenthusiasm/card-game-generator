@@ -7,12 +7,7 @@ import createWebSocketServer from "./createWebSocketServer";
 
   createWebSocketServer(server);
 
-  server.listen(port, async () => {
+  server.listen(port, () => {
     console.log(`App listening on port ${port}`);
-
-    if (process.env.NODE_ENV === "development") {
-      const open = await import("open");
-      open.default(`http://localhost:${port}`);
-    }
   });
 })();

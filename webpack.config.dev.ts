@@ -34,21 +34,11 @@ const config: webpack.Configuration = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        include: path.resolve(__dirname, "src"),
-        use: ["babel-loader"],
-      },
-      {
         test: /\.ts$/,
         include: path.resolve(__dirname, "src"),
         use: [
-          { loader: "babel-loader" },
-          {
-            loader: "ts-loader",
-            options: {
-              appendTsSuffixTo: [/\.vue$/],
-            },
-          },
+          "babel-loader",
+          { loader: "ts-loader", options: { appendTsSuffixTo: [/\.vue$/] } },
         ],
       },
       {
@@ -59,10 +49,7 @@ const config: webpack.Configuration = {
       {
         test: /.css$/,
         include: path.resolve(__dirname, "src"),
-        use: [
-          { loader: "vue-style-loader" },
-          { loader: "css-loader", options: { esModule: false } },
-        ],
+        use: ["vue-style-loader", "css-loader"],
       },
     ],
   },
