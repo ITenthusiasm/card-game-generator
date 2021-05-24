@@ -9,7 +9,7 @@
     "test:all": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "try:codenames": "babel-node server/games/Codenames.ts --extensions .ts",
-    "lint": "eslint **/*.{ts,vue}"
+    "lint": "eslint '**/*.{ts,vue}'"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.0",
